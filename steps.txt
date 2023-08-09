@@ -68,3 +68,13 @@ pip install django-filter
 1.11. Models, python manage.py makemigrations, python manage.py migrate
 
 1.12. Admin panel
+
+1.13 REST_FRAMEWORK
+    - serializers
+    - views for serializers
+    - urls for serializers
+
+1.14. Swagger
+ - pip install django djangorestframework drf-yasg
+ - schema_view has to be added to urls.py
+ - 'drf_yasg', has to be added to settings.py -> INSTALLED_APPS

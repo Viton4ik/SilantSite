@@ -38,11 +38,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    
     'django_filters',  # -#
     'rest_framework', 
     'corsheaders',
     'App',
+    'drf_yasg', # for swagger
 ]
+
+# SITE_ID = 1 # allauth, flatpages, site
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -153,3 +157,5 @@ CORS_ALLOWED_ORIGINS = [
     'http://localhost:8002',
     'http://localhost:3000',
 ]
+
+SITE_URL = "http://127.0.0.1:8000"
