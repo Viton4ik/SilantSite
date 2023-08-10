@@ -1,10 +1,13 @@
 
-
 from django.urls import path, include
+
+from .views import html_404, indexPage
 
 # rest_framework
 from rest_framework import routers
 from App import views
+
+
 router = routers.DefaultRouter()
 
 router.register(r'user', views.UserViewset, basename='api_user')
@@ -71,5 +74,9 @@ urlpatterns = [
 
     # rest_framework
     path('api/', include(router.urls), name='api'),
+
+    # ===== views =====
+    path('', indexPage, name='indexPage'),
+    path('404/', html_404, name='html_404'),
 
 ]

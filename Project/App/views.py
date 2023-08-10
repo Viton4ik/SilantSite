@@ -200,3 +200,14 @@ class ClaimsViewSet(viewsets.ModelViewSet):
 
     # TODO: class has to chosen properly!
     permission_classes = [permissions.IsAuthenticated|ReadOnly]
+
+
+
+# ===== views =====
+
+def html_404(request):
+    return render(request, 'App/404.html', {}, status=404)
+
+
+def indexPage(request):
+    return render(request, 'App/index.html', {})

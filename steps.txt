@@ -78,3 +78,20 @@ pip install django-filter
  - pip install django djangorestframework drf-yasg
  - schema_view has to be added to urls.py
  - 'drf_yasg', has to be added to settings.py -> INSTALLED_APPS
+
+1.15 authentication features 
+    - # site in admin panel 
+     'django.contrib.sites', has to be added to settings.py -> INSTALLED_APPS
+    - SITE_ID = 1  # allauth, flatpages, site
+
+
+2. FrontEnd
+
+
+2.1 Folder 'templates' to be created in a root dir
+
+2.2. Folder 'static' to be created in App dir
+
+2.3. 404.html created
+
+2.4. indexPage created

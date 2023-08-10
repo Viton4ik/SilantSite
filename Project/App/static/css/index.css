@@ -1,0 +1,25 @@
+/* body { */
+    /* margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; */
+    /* background: #FFF; */
+/* } */
+
+.image-container {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: #FFF;
+
+    max-width: 100%;
+    text-align: center;
+}
+
+.indexLogo {
+    max-width: 100%;
+    height: auto;
+}
