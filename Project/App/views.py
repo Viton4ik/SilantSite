@@ -2,6 +2,8 @@ from django.shortcuts import render
 
 from django.contrib.auth.models import User
 
+from django.core.paginator import Paginator
+
 # ===== rest_framework =====
 
 from rest_framework import permissions
@@ -211,3 +213,27 @@ def html_404(request):
 
 def indexPage(request):
     return render(request, 'App/index.html', {})
+
+
+def mainPage(request):
+
+    # vehicles=Vehicle.objects.filter().values_list("deliveryDate", flat=True)
+    # vehicles=Vehicle.objects.filter().values("deliveryDate")
+    vehicles = Vehicle.objects.all().order_by('-deliveryDate')
+    user = request.user
+    print('user:', user)
+    print('user.id:', user.id)
+    print('vehicle:', vehicles)
+
+    # Получение страницы из параметров запроса
+    page_number = request.GET.get('page')
+
+    # Создание объекта Paginator
+    paginator = Paginator(vehicles, 10)  
+
+    # Получение объекта Page для текущей страницы
+    page = paginator.get_page(page_number)
+
+    return render(request, 'App/main.html', {'vehicles': vehicles, 'page': page})
+
+

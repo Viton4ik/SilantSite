@@ -1,0 +1,183 @@
+
+@font-face {
+    font-family: 'PT Astra Sans Bold';
+    src: url('../assets/PT Astra Sans/PT-Astra-Sans_Bold.ttf') format('opentype');
+}
+
+@font-face {
+    font-family: 'PT Astra Sans Bold Italic';
+    src: url('../assets/PT Astra Sans/PT-Astra-Sans_Bold-Italic.ttf') format('opentype');
+}
+
+@font-face {
+    font-family: 'PT Astra Sans Regular';
+    src: url('../assets/PT Astra Sans/PT-Astra-Sans_Regular.ttf') format('opentype');
+}
+
+body, html {
+    background: linear-gradient(rgb(255, 255, 255) 0%, #f5f2f2 51%, #f8fafd 75%); 
+    width: 100%;
+    margin: 0;
+    padding: 0;
+} 
+
+header {
+    color: rgb(81, 88, 94);
+    /* background: rgb(3, 100, 226); */
+    background: linear-gradient(rgb(241, 239, 239) 0%, #dfd6d6 51%, #e3ebfa 75%); 
+    height: 100px;
+    display: flex;
+    justify-content: space-between;
+    /*justify-content: space-evenly;*/
+    /* align-items: center; */
+    padding: 20px 20px 0px 20px;
+    border-radius: 10px;
+    /*position: fixed;*/
+    /*left: 0;*/
+    /*top: 0;*/
+    min-width: 1445px;
+    /* width: 100%; */
+}
+
+.headerInfo {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 0px 20px 0px;
+    font-family: 'PT Astra Sans Bold', serif;
+    font-size: 20px;
+    text-shadow: 4px 4px 4px #163E6C;
+}
+
+.headerAuthorization {
+    padding-top: 10px;
+    
+}
+
+.headerAuthorizationButton {
+    width: 150px;
+    height: 40px;
+    border-radius: 5px;
+    border-color: #7a9cf3;
+    background: #9eb9f0;
+    cursor: pointer;
+    font-family: 'PT Astra Sans Regular', serif;
+    font-size: 18px;
+    color: rgb(81, 88, 94);
+}
+
+.headerInfoText {
+    padding-top: 10px;
+    font-family: 'PT Astra Sans Bold Italic', serif;
+    font-size: 24px;
+    text-shadow: 4px 4px 4px #163E6C;
+}
+
+
+footer {
+    color: rgb(81, 88, 94);
+    background: linear-gradient(rgb(241, 239, 239) 0%, #dfd6d6 51%, #e3ebfa 75%); 
+    height: 100px;
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 50px 0px 50px;
+    border-radius: 10px;
+    font-family: 'PT Astra Sans Bold Italic', serif;
+    font-size: 24px;
+    text-shadow: 4px 4px 4px #7a9cf3;
+    min-width: 1390px;
+    /* width: 100%; */
+
+}
+
+.logo {
+    width: 70%;
+    height: 70%;
+}
+
+.tableVehicles{
+    /* flex: 1; */
+    max-width: 100wv;
+    font-family: 'PT Astra Sans Regular', serif;
+    /* width: 100vw;  */
+    display: inline-block;
+    width: 100%;
+ 
+}
+
+/* .tableHead {
+    display: grid;
+    grid-template-columns: repeat(17, 1fr);
+    width: auto;
+} */
+
+
+/* Стили для больших экранов, например, 1920x1080 и 1366x768 */
+/* @media (min-width: 1366px) {
+    .headerInfo, .headerInfoText {
+      max-width: 50%;
+    }
+  } */
+  
+  /* Стили для средних экранов, например, 1536x864 и 1440x900 */
+  @media (max-width: 1365px) {
+    .headerInfoText {
+        font-size: 20px;
+    }
+    .headerAuthorizationButton {
+        width: 105px;
+        font-size: 16px;
+    }
+    /* header {
+        padding: 20px 0px 0px 20px;
+    } */
+    .headerInfo {
+        font-size: 18px;
+        /* max-width: 70%; */
+    }
+    .logo {
+        width: 60%;
+        height: 60%;
+    }
+    footer {
+        font-size: 20px;
+    }
+  }
+
+  @media (max-width: 870px) {
+    .headerInfoText {
+        font-size: 16px;
+    }
+    .headerAuthorizationButton {
+        width: 90px;
+        font-size: 14px;
+    }
+    /* header {
+        padding: 20px 0px 0px 20px;
+    } */
+    .headerInfo {
+        font-size: 14px;
+        /* max-width: 70%; */
+    }
+    .logo {
+        width: 60%;
+        height: 60%;
+    }
+    footer {
+        font-size: 16px;
+    }
+  }
+  
+  /* Стили для мобильных экранов, например, 360x640 */
+  @media (max-width: 767px) {
+    /* .headerInfo, .headerInfoText{
+      max-width: 90%;
+    } */
+    .headerInfo {
+        display: none;
+    }
+    footer {
+        font-size: 12px;
+    }
+  }

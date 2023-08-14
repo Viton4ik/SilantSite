@@ -3,25 +3,49 @@
 <!DOCTYPE HTML>
 <html lang="en">
   <head>
-    <title>Silant</title>
     <link rel="icon" type="image/x-icon" href="{% static 'assets/img/Logotype RGB 1.jpg' %}" >
     <link rel="stylesheet" href="{% static 'css/default.css' %}">
     {% block indexHead %}{% endblock indexHead %}
  </head> 
 
   <header>
+    <div>
+        <!-- <img src="{% static 'assets/img/Logotype RGB 1.jpg' %}" alt="indexLogo" width="130px" height="100px"/> -->
+        <img class="logo" src="{% static 'assets/img/photo.svg' %}"  alt="indexLogo" />
+        
+    </div>
 
+    <div class="headerInfo">
+        <div >
+            +7-8352-20-12-09, telegram
+        </div>
+            
+        <div class="headerInfoText">
+            Электронная сервисная книжка "Мой Силант"
+        </div>
+    </div>
+
+    <div class="headerAuthorization">
+        <button class="headerAuthorizationButton">Authorization</button>
+    </div>
   </header>
 
 
   <body>
     {% block index %}{% endblock index %}
+    {% block mainPage %}{% endblock mainPage %}
+    {% block pagination %}{% endblock pagination %}
   
   </body>
 
 
   <footer>
-
+    <div>
+        +7-8352-20-12-09, telegram
+    </div>
+    <div>
+        "Мой Силант" 2022
+    </div>
   </footer>
 
 </html>

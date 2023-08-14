@@ -1,0 +1,104 @@
+{% extends 'App/default.html' %}
+
+
+{% load static %}
+
+
+{% block indexHead %}
+    <title>Машины</title>
+{% endblock indexHead %}
+
+
+{% block mainPage %}
+
+    {% if vehicles %}
+        <table class="tableVehicles">
+
+            <tr style="background-color: #163E6C">
+                <td style="text-align: center;">Зав. № машины</td>
+                <td style="text-align: center;">Модель техники</td>
+                <td style="text-align: center;">Модель двигателя</td>
+                <td style="text-align: center;">Зав. № двигателя</td>
+                <td style="text-align: center;">Модель трансмиссии</td>
+                <td style="text-align: center;">Зав. № трансмиссии</td>
+                <td style="text-align: center;">Модель ведущего моста</td>
+                <td style="text-align: center;">Зав. № ведущего моста</td>
+                <td style="text-align: center;">Модель управляемого моста</td>
+                <td style="text-align: center;">Зав. № управляемого моста</td>
+                <td style="text-align: center;">Договор поставки №, дата</td>
+                <td style="text-align: center;">Дата отгрузки с завода</td>
+                <td style="text-align: center;">Грузополучатель (конечный потребитель)</td>
+                <td style="text-align: center;">Адрес поставки (эксплуатации)</td>
+                <td style="text-align: center;">Комплектация (доп. опции)</td>
+                <td style="text-align: center;">Клиент</td>
+                <td style="text-align: center;">Сервисная компания</td>
+            </tr>
+        
+        {% for vehicle in page %}
+
+                <tr style="background-color:{% cycle 'white' '#EBE6D6' %}; text-align: center;">
+
+                        <td>{{ vehicle.vehicleNumber }}</td>
+                        <td>{{ vehicle.vehicleModel }}</td>
+                        <td>{{ vehicle.engineModel }}</td>
+                        <td>{{ vehicle.engineNumber }}</td>
+                        <td>{{ vehicle.transmissionModel }}</td>
+                        <td>{{ vehicle.transmissionNumber }}</td>
+                        <td>{{ vehicle.driveAxleModel }}</td>
+                        <td>{{ vehicle.driveAxleNumber }}</td>
+                        <td>{{ vehicle.steeringAxleModel }}</td>
+                        <td>{{ vehicle.steeringAxleNumber }}</td>
+                        <td>{{ vehicle.deliveryContract_N_data }}</td>
+                        <td>{{ vehicle.deliveryDate }}</td>
+                        <td>{{ vehicle.consignee }}</td>
+                        <td>{{ vehicle.deliveryAdress }}</td>
+                        <td>{{ vehicle.completeSet }}</td>
+                        <td>{{ vehicle.client }}</td>
+                        <td>{{ vehicle.serviceCompany }}</td>
+
+                </tr>
+        {% endfor %}
+        </table>   
+    {% else %}
+        <h2>No vehicles</h2>
+    {% endif %}
+
+{% endblock mainPage %}
+
+
+{% block pagination %}
+
+{# Добавляем пагинацию на страницу #}
+<div style="text-align: center;">Page
+    {# Добавляем "<" #}
+    {% if page.has_previous %}
+       <a href="?page={{ page.previous_page_number }}"><</a>
+    {% endif %}
+
+    {# Информация о предыдущих страницах #}
+    {% if page.has_previous %}
+       <a href="?page=1">1</a>
+       {% if page.previous_page_number != 1 %}
+           ...
+           <a href="?page={{ page.previous_page_number }}">{{ page_obj.previous_page_number }}</a>
+       {% endif %}
+    {% endif %}
+
+    {# Информация о текущей странице #}
+    {{ page.number }}
+
+    {# Информация о следующих страницах #}
+    {% if page.has_next %}
+       <a href="?page={{ page.next_page_number }}">{{ page.next_page_number }}</a>
+       {% if paginator.num_pages != page.next_page_number %}
+           ...
+           <a href="?page={{ page.paginator.num_pages }}">{{ page.paginator.num_pages }}</a>
+       {% endif %}
+    {% endif %}
+
+    {# Добавляем ">" #}
+    {% if page.has_next %}
+       <a href="?page={{ page.next_page_number }}">></a>
+    {% endif %}
+</div>
+{% endblock pagination %}
