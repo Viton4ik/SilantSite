@@ -97,3 +97,5 @@ pip install django-filter
 2.4. indexPage created
 
 2.5. header&footer created (for the default page)
+
+2.6 Main Table created

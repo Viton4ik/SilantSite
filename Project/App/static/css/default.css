@@ -19,6 +19,15 @@ body, html {
     width: 100%;
     margin: 0;
     padding: 0;
+    /* min-height: 100vh; */
+
+    /* display: flex;
+    justify-content: center;
+    flex-direction: column; */
+
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(auto, 1fr));
+    /* grid-template-columns: repeat(auto-fit, 1fr); */
 } 
 
 header {
@@ -35,7 +44,7 @@ header {
     /*position: fixed;*/
     /*left: 0;*/
     /*top: 0;*/
-    min-width: 1445px;
+    /* min-width: 1450px; */
     /* width: 100%; */
 }
 
@@ -78,7 +87,7 @@ header {
 footer {
     color: rgb(81, 88, 94);
     background: linear-gradient(rgb(241, 239, 239) 0%, #dfd6d6 51%, #e3ebfa 75%); 
-    height: 100px;
+    height: 60px;
     display: flex;
     justify-content: space-between;
     padding: 20px 50px 0px 50px;
@@ -86,8 +95,17 @@ footer {
     font-family: 'PT Astra Sans Bold Italic', serif;
     font-size: 24px;
     text-shadow: 4px 4px 4px #7a9cf3;
-    min-width: 1390px;
+    /* min-width: 1390px; */
+
     /* width: 100%; */
+    bottom: 0;
+    left: 0;
+    right: 0;
+    position: fixed; 
+
+    /* margin-top: auto; */
+    /* flex-grow: 1; */
+    /* grid-column: 1 / -1; */
 
 }
 
@@ -103,25 +121,37 @@ footer {
     /* width: 100vw;  */
     display: inline-block;
     width: 100%;
- 
+    /* min-height: 360px; */
+    /* flex: 0 0 calc(50% - 20px); */
+
+    /* height: auto; */
+    
 }
 
-/* .tableHead {
-    display: grid;
-    grid-template-columns: repeat(17, 1fr);
-    width: auto;
-} */
+.mainView {
+    height: auto;
+    padding-left: 5px;
+}
+
+.paginator {
+    margin-bottom: 90px;
+}
+
+.filter {
+    padding-left: 10px;
+}
 
 
 /* Стили для больших экранов, например, 1920x1080 и 1366x768 */
-/* @media (min-width: 1366px) {
-    .headerInfo, .headerInfoText {
-      max-width: 50%;
+@media (min-width: 1366px) {
+    /* .mainView {
+        min-height: 768px;
+
+        } */
     }
-  } */
   
   /* Стили для средних экранов, например, 1536x864 и 1440x900 */
-  @media (max-width: 1365px) {
+@media (max-width: 1365px) {
     .headerInfoText {
         font-size: 20px;
     }
@@ -143,9 +173,13 @@ footer {
     footer {
         font-size: 20px;
     }
-  }
+    /* .mainView {
+        min-height: 768px;
 
-  @media (max-width: 870px) {
+        } */
+}
+
+@media (max-width: 870px) {
     .headerInfoText {
         font-size: 16px;
     }
@@ -167,12 +201,12 @@ footer {
     footer {
         font-size: 16px;
     }
-  }
+}
   
   /* Стили для мобильных экранов, например, 360x640 */
-  @media (max-width: 767px) {
+@media (max-width: 767px) {
     /* .headerInfo, .headerInfoText{
-      max-width: 90%;
+        max-width: 90%;
     } */
     .headerInfo {
         display: none;
@@ -180,4 +214,4 @@ footer {
     footer {
         font-size: 12px;
     }
-  }
+}

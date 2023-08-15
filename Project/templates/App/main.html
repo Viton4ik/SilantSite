@@ -9,9 +9,52 @@
 {% endblock indexHead %}
 
 
+{% block filter %}
+    <div class="filter">
+        <form method="get" action="{% url 'mainPage' %}">
+
+            <label for="vehicle_model">Модель техники: </label>
+            <select name="vehicle_model" id="vehicle_model">
+                <option value="">All</option>
+                {% for model in vehicle_models_names %}
+                    <option value="{{ model }}" {% if model == selected_filter %}selected{% endif %}>{{ model }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="engine_model">Модель двигателя: </label>
+            <select name="engine_model" id="engine_model">
+                <option value="">All</option>
+                {% for model in engine_models_names %}
+                    <option value="{{ model }}" {% if model == filter_engine_model %}selected{% endif %}>{{ model }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="transmission_model">Модель трансмиссии: </label>
+            <select name="transmission_model" id="transmission_model">
+                <option value="">All</option>
+                {% for model in transmission_models_names %}
+                    <option value="{{ model }}" {% if model == filter_transmission_model %}selected{% endif %}>{{ model }}</option>
+                {% endfor %}
+            </select>
+
+            <button type="submit">Применить фильтр</button>
+            <!-- <button type="submit" name="resetFilterButton" value="True">Сбросить фильтр</button> -->
+            <input type="reset" value="Сбросить фильтр">
+        </form>
+<!--         
+        <ul>
+            {% for vehicle in vehicles %}
+                <li>{{ vehicle.vehicleModel }} - {{ vehicle.other_fields }}</li>
+            {% endfor %}
+        </ul> -->
+    </div>
+{% endblock filter %}
+
+
 {% block mainPage %}
 
     {% if vehicles %}
+    <div class="mainView">
         <table class="tableVehicles">
 
             <tr style="background-color: #163E6C">
@@ -62,14 +105,14 @@
     {% else %}
         <h2>No vehicles</h2>
     {% endif %}
-
+    </div>
 {% endblock mainPage %}
 
 
 {% block pagination %}
 
 {# Добавляем пагинацию на страницу #}
-<div style="text-align: center;">Page
+<div class="paginator" style="text-align: center;">Page
     {# Добавляем "<" #}
     {% if page.has_previous %}
        <a href="?page={{ page.previous_page_number }}"><</a>
