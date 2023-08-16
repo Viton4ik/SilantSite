@@ -118,8 +118,9 @@ footer {
     /* flex: 1; */
     max-width: 100wv;
     font-family: 'PT Astra Sans Regular', serif;
+    font-size: 18px;
     /* width: 100vw;  */
-    display: inline-block;
+    /* display: inline-block; */
     width: 100%;
     /* min-height: 360px; */
     /* flex: 0 0 calc(50% - 20px); */
@@ -128,6 +129,11 @@ footer {
     
 }
 
+/* .tableVehicles tr {
+    width: 100%;
+    
+} */
+
 .mainView {
     height: auto;
     padding-left: 5px;
@@ -135,10 +141,51 @@ footer {
 
 .paginator {
     margin-bottom: 90px;
+    margin-top: 10px;
+    /* left: 45%;
+    right: 45%; */
+    /* display: flex; */
+    
+    /* justify-content: center; */
+    /* bottom: 100px;
+    position: fixed;  */
 }
 
 .filter {
-    padding-left: 10px;
+    padding: 10px 10px 10px 10px;
+    font-family: 'PT Astra Sans Bold Italic', serif;
+    font-size: 16px;
+}
+
+.filterForm {
+    /* padding: 0px 10px; */
+    /* margin-left: 5px; */
+    display: flex;
+    justify-content: space-evenly;
+    /* align-items: center; */
+    /* width: auto; */
+    max-height: 20px;
+    height: 100%;
+    width: 100%;
+    white-space: nowrap;
+    /* gap: 1px; */
+    
+
+    /* display: grid;
+    grid-template-columns: repeat(auto-fit, 1fr);
+    justify-content: space-around; */
+    /* align-items: center; */
+}
+
+.user{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    font-family: 'PT Astra Sans Regular';
+    font-size: 22px;
+    padding: 10px 10px;
+    gap: 10px;
 }
 
 

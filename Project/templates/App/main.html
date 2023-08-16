@@ -9,19 +9,29 @@
 {% endblock indexHead %}
 
 
+{% block user %}
+    <div class="user">
+       <div>Пользователь: <em>"{{user}}"</em></div> 
+       <div>Информация о комплектации и технических характеристиках вашей техники</div>
+    </div>
+
+{% endblock user %}
+
+
 {% block filter %}
     <div class="filter">
-        <form method="get" action="{% url 'mainPage' %}">
+        <form class="filterForm" method="get" action="{% url 'mainPage' %}">
 
-            <label for="vehicle_model">Модель техники: </label>
+            <label for="vehicle_model"> Модель техники: </label>
             <select name="vehicle_model" id="vehicle_model">
                 <option value="">All</option>
                 {% for model in vehicle_models_names %}
                     <option value="{{ model }}" {% if model == selected_filter %}selected{% endif %}>{{ model }}</option>
                 {% endfor %}
             </select>
+            <!-- <div class="divider"> | </div> -->
 
-            <label for="engine_model">Модель двигателя: </label>
+            <label for="engine_model"> &nbsp;Модель двигателя: </label>
             <select name="engine_model" id="engine_model">
                 <option value="">All</option>
                 {% for model in engine_models_names %}
@@ -29,7 +39,7 @@
                 {% endfor %}
             </select>
 
-            <label for="transmission_model">Модель трансмиссии: </label>
+            <label for="transmission_model"> &nbsp;Модель трансмиссии: </label>
             <select name="transmission_model" id="transmission_model">
                 <option value="">All</option>
                 {% for model in transmission_models_names %}
@@ -37,9 +47,27 @@
                 {% endfor %}
             </select>
 
-            <button type="submit">Применить фильтр</button>
+
+            <label for="driveAxle_model"> &nbsp;Модель ведущего моста: </label>
+            <select name="driveAxle_model" id="driveAxle_model">
+                <option value="">All</option>
+                {% for model in driveAxle_models_names %}
+                    <option value="{{ model }}" {% if model == filter_driveAxle_model %}selected{% endif %}>{{ model }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="steeringAxle_model"> &nbsp;Модель управляемого моста: </label>
+            <select name="steeringAxle_model" id="steeringAxle_model">
+                <option value="">All</option>
+                {% for model in steeringAxle_models_names %}
+                    <option value="{{ model }}" {% if model == filter_steeringAxle_model %}selected{% endif %}>{{ model }}</option>
+                {% endfor %}
+            </select>
+
+            &nbsp;<button id="buttonApplyFilterMain" type="submit">Применить фильтр</button>
             <!-- <button type="submit" name="resetFilterButton" value="True">Сбросить фильтр</button> -->
-            <input type="reset" value="Сбросить фильтр">
+            <!-- <input id="resetButtonFilterMain" type="reset" value="Сбросить фильтр"> -->
+            &nbsp;<button id="resetButtonFilterMain">Сбросить фильтр</button>
         </form>
 <!--         
         <ul>
@@ -48,6 +76,9 @@
             {% endfor %}
         </ul> -->
     </div>
+    <div class="user">
+        <div>таблица с данными (выдача результата)</div>
+     </div>
 {% endblock filter %}
 
 
@@ -59,14 +90,14 @@
 
             <tr style="background-color: #163E6C">
                 <td style="text-align: center;">Зав. № машины</td>
-                <td style="text-align: center;">Модель техники</td>
-                <td style="text-align: center;">Модель двигателя</td>
+                <td id="vehicleModelRowName" style="text-align: center;">Модель техники</td>
+                <td id="engineModelRowName" style="text-align: center;">Модель двигателя</td>
                 <td style="text-align: center;">Зав. № двигателя</td>
-                <td style="text-align: center;">Модель трансмиссии</td>
+                <td id="transmissionModelRowName" style="text-align: center;">Модель трансмиссии</td>
                 <td style="text-align: center;">Зав. № трансмиссии</td>
-                <td style="text-align: center;">Модель ведущего моста</td>
+                <td id="driveAxleModelRowName" style="text-align: center;">Модель ведущего моста</td>
                 <td style="text-align: center;">Зав. № ведущего моста</td>
-                <td style="text-align: center;">Модель управляемого моста</td>
+                <td id="steeringAxleModelRowName" style="text-align: center;">Модель управляемого моста</td>
                 <td style="text-align: center;">Зав. № управляемого моста</td>
                 <td style="text-align: center;">Договор поставки №, дата</td>
                 <td style="text-align: center;">Дата отгрузки с завода</td>
@@ -82,14 +113,14 @@
                 <tr style="background-color:{% cycle 'white' '#EBE6D6' %}; text-align: center;">
 
                         <td>{{ vehicle.vehicleNumber }}</td>
-                        <td>{{ vehicle.vehicleModel }}</td>
-                        <td>{{ vehicle.engineModel }}</td>
+                        <td class="vehicleModelRow">{{ vehicle.vehicleModel }}</td>
+                        <td class="engineModelRow">{{ vehicle.engineModel }}</td>
                         <td>{{ vehicle.engineNumber }}</td>
-                        <td>{{ vehicle.transmissionModel }}</td>
+                        <td class="transmissionModelRow">{{ vehicle.transmissionModel }}</td>
                         <td>{{ vehicle.transmissionNumber }}</td>
-                        <td>{{ vehicle.driveAxleModel }}</td>
+                        <td class="driveAxleModelRow">{{ vehicle.driveAxleModel }}</td>
                         <td>{{ vehicle.driveAxleNumber }}</td>
-                        <td>{{ vehicle.steeringAxleModel }}</td>
+                        <td class="steeringAxleModelRow">{{ vehicle.steeringAxleModel }}</td>
                         <td>{{ vehicle.steeringAxleNumber }}</td>
                         <td>{{ vehicle.deliveryContract_N_data }}</td>
                         <td>{{ vehicle.deliveryDate }}</td>
@@ -106,13 +137,15 @@
         <h2>No vehicles</h2>
     {% endif %}
     </div>
+    <script src="{% static 'js/main.js' %}"></script>
+
 {% endblock mainPage %}
 
 
 {% block pagination %}
 
 {# Добавляем пагинацию на страницу #}
-<div class="paginator" style="text-align: center;">Page
+<div class="paginator" style="text-align: center;">Page: 
     {# Добавляем "<" #}
     {% if page.has_previous %}
        <a href="?page={{ page.previous_page_number }}"><</a>
@@ -131,12 +164,14 @@
     {{ page.number }}
 
     {# Информация о следующих страницах #}
-    {% if page.has_next %}
-       <a href="?page={{ page.next_page_number }}">{{ page.next_page_number }}</a>
-       {% if paginator.num_pages != page.next_page_number %}
+    {% if page.has_next or page.next_page_number == page.paginator.num_pages %}
+        {% if page.next_page_number != page.paginator.num_pages %}
+            <a href="?page={{ page.next_page_number }}">{{ page.next_page_number }}</a>
+        {% endif %}
+        {% if paginator.num_pages != page.next_page_number %}
            ...
            <a href="?page={{ page.paginator.num_pages }}">{{ page.paginator.num_pages }}</a>
-       {% endif %}
+        {% endif %}
     {% endif %}
 
     {# Добавляем ">" #}
