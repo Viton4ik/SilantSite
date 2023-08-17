@@ -13,6 +13,11 @@
     <div class="user">
        <div>Пользователь: <em>"{{user}}"</em></div> 
        <div>Информация о проведенных ТО вашей техники</div>
+       <div>
+            <a href="{% url 'mainPage' %}"><button class="tableChangeButtons">Машины</button></a>
+            <a href="{% url 'maintenancePage' %}"><button class="tableChangeButtons" style="background-color:#EBE6D6;">Техническое обслуживание</button></a>    
+            <a href="{% url 'claimPage' %}"><button class="tableChangeButtons">Рекламации</button></a>    
+        </div>
     </div>
 
 {% endblock user %}
@@ -46,8 +51,8 @@
                 {% endfor %}
             </select>
 
-            &nbsp;<button id="buttonApplyFilterMain" type="submit">Применить фильтр</button>
-            &nbsp;<button id="resetButtonFilterMain">Сбросить фильтр</button>
+            &nbsp;<button class="filterButtons" id="buttonApplyFilterMain" type="submit">Применить фильтр</button>
+            &nbsp;<button class="filterButtons" id="resetButtonFilterMain">Сбросить фильтр</button>
         </form>
     </div>
     <div class="user">

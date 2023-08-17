@@ -98,4 +98,4 @@ pip install django-filter
 
 2.5. header&footer created (for the default page)
 
-2.6 Main Table created
+2.6 Main/ТО/Рекламация Table created

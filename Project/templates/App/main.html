@@ -13,6 +13,11 @@
     <div class="user">
        <div>Пользователь: <em>"{{user}}"</em></div> 
        <div>Информация о комплектации и технических характеристиках вашей техники</div>
+       <div>
+            <a href="{% url 'mainPage' %}"><button class="tableChangeButtons" style="background-color:#EBE6D6;">Машины</button></a>
+            <a href="{% url 'maintenancePage' %}"><button class="tableChangeButtons">Техническое обслуживание</button></a>    
+            <a href="{% url 'claimPage' %}"><button class="tableChangeButtons">Рекламации</button></a>    
+        </div>
     </div>
 
 {% endblock user %}
@@ -64,10 +69,10 @@
                 {% endfor %}
             </select>
 
-            &nbsp;<button id="buttonApplyFilterMain" type="submit">Применить фильтр</button>
+            &nbsp;<button class="filterButtons" id="buttonApplyFilterMain" type="submit">Применить фильтр</button>
             <!-- <button type="submit" name="resetFilterButton" value="True">Сбросить фильтр</button> -->
             <!-- <input id="resetButtonFilterMain" type="reset" value="Сбросить фильтр"> -->
-            &nbsp;<button id="resetButtonFilterMain">Сбросить фильтр</button>
+            &nbsp;<button class="filterButtons" id="resetButtonFilterMain">Сбросить фильтр</button>
         </form>
 <!--         
         <ul>
@@ -88,6 +93,8 @@
     <div class="mainView">
         <table class="tableVehicles">
 
+            <!-- {# % if request.user.is_authenticated % #} -->
+
             <tr style="background-color: #163E6C">
                 <td style="text-align: center;">Зав. № машины</td>
                 <td id="vehicleModelRowName" style="text-align: center;">Модель техники</td>
@@ -99,15 +106,16 @@
                 <td style="text-align: center;">Зав. № ведущего моста</td>
                 <td id="steeringAxleModelRowName" style="text-align: center;">Модель управляемого моста</td>
                 <td style="text-align: center;">Зав. № управляемого моста</td>
-                <td style="text-align: center;">Договор поставки №, дата</td>
-                <td style="text-align: center;">Дата отгрузки с завода</td>
-                <td style="text-align: center;">Грузополучатель (конечный потребитель)</td>
-                <td style="text-align: center;">Адрес поставки (эксплуатации)</td>
-                <td style="text-align: center;">Комплектация (доп. опции)</td>
-                <td style="text-align: center;">Клиент</td>
-                <td style="text-align: center;">Сервисная компания</td>
+                <td style="text-align: center; {{ hideInfo }}">Договор поставки №, дата</td>
+                <td style="text-align: center; {{ hideInfo }}">Дата отгрузки с завода</td>
+                <td style="text-align: center; {{ hideInfo }}">Грузополучатель (конечный потребитель)</td>
+                <td style="text-align: center; {{ hideInfo }}">Адрес поставки (эксплуатации)</td>
+                <td style="text-align: center; {{ hideInfo }}">Комплектация (доп. опции)</td>
+                <td style="text-align: center; {{ hideInfo }}">Клиент</td>
+                <td style="text-align: center; {{ hideInfo }}">Сервисная компания</td>
             </tr>
         
+            <!-- {# % endif % #}  -->
         {% for vehicle in page %}
 
                 <tr style="background-color:{% cycle 'white' '#EBE6D6' %}; text-align: center;">
@@ -122,13 +130,13 @@
                         <td>{{ vehicle.driveAxleNumber }}</td>
                         <td class="steeringAxleModelRow">{{ vehicle.steeringAxleModel }}</td>
                         <td>{{ vehicle.steeringAxleNumber }}</td>
-                        <td>{{ vehicle.deliveryContract_N_data }}</td>
-                        <td>{{ vehicle.deliveryDate }}</td>
-                        <td>{{ vehicle.consignee }}</td>
-                        <td>{{ vehicle.deliveryAdress }}</td>
-                        <td>{{ vehicle.completeSet }}</td>
-                        <td>{{ vehicle.client }}</td>
-                        <td>{{ vehicle.serviceCompany }}</td>
+                        <td style="{{ hideInfo }}">{{ vehicle.deliveryContract_N_data }}</td>
+                        <td style="{{ hideInfo }}">{{ vehicle.deliveryDate }}</td>
+                        <td style="{{ hideInfo }}">{{ vehicle.consignee }}</td>
+                        <td style="{{ hideInfo }}">{{ vehicle.deliveryAdress }}</td>
+                        <td style="{{ hideInfo }}">{{ vehicle.completeSet }}</td>
+                        <td style="{{ hideInfo }}">{{ vehicle.client }}</td>
+                        <td style="{{ hideInfo }}">{{ vehicle.serviceCompany }}</td>
 
                 </tr>
         {% endfor %}

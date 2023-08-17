@@ -67,13 +67,34 @@ header {
 .headerAuthorizationButton {
     width: 150px;
     height: 40px;
-    border-radius: 5px;
+    /* border-radius: 5px;
     border-color: #7a9cf3;
-    background: #9eb9f0;
+    background: #9eb9f0; */
     cursor: pointer;
     font-family: 'PT Astra Sans Regular', serif;
+    /* font-size: 18px;
+    color: rgb(81, 88, 94); */
+    border-radius: 30px;
     font-size: 18px;
-    color: rgb(81, 88, 94);
+
+
+    --button-color-contrast: hsla(221, 100%, 78%, 1);
+    --button-color-hover: hsla(221, 100%, 28%, 1);
+    --button-color-light: hsla(221, 18%, 32%, 1);
+    --button-color: #001d5c;
+    --color: #001d5c;
+    --color-hover: #ffffff;
+    animation-duration: 1000ms;
+    animation-play-state: running;
+    animation-name: none;
+
+    border-color: var(--button-color);
+    background-color: transparent;
+
+    padding-left: 1.42857rem !important;
+    padding-right: 1.42857rem !important;
+
+    color: var(--color) !important;
 }
 
 .headerInfoText {
@@ -186,6 +207,40 @@ footer {
     font-size: 22px;
     padding: 10px 10px;
     gap: 10px;
+}
+
+.tableChangeButtons {
+    cursor: pointer;
+    border-radius: 20px;
+    font-size: 18px;
+    margin-right: 20px;
+    font-family: 'PT Astra Sans Regular', serif;
+
+    --button-color-contrast: hsla(221, 100%, 78%, 1);
+    --button-color-hover: hsla(221, 100%, 28%, 1);
+    --button-color-light: hsla(221, 18%, 32%, 1);
+    --button-color: #001d5c;
+    --color: #001d5c;
+    --color-hover: #ffffff;
+    animation-duration: 1000ms;
+    animation-play-state: running;
+    animation-name: none;
+
+    border-color: var(--button-color);
+    background-color: transparent;
+
+    padding-left: 1.42857rem !important;
+    padding-right: 1.42857rem !important;
+
+    color: var(--color) !important;
+}
+
+.headerAuthorizationButton:hover, .tableChangeButtons:hover {
+    /* background-color: var(--button-color-contrast); */
+    /* background-color: #EBE6D6; */
+    /* background-color: linear-gradient(#c9a938 0%, #a3904f 51%, #a09470 75%); */
+    box-shadow: 4px 4px 4px var(--button-color-light);
+    /* border-radius: 50px; */
 }
 
 

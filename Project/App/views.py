@@ -4,6 +4,8 @@ from django.contrib.auth.models import User
 
 from django.core.paginator import Paginator
 
+from django.contrib.auth.decorators import login_required, permission_required
+
 #для создания сложных условий фильтрации
 from django.db.models import Q
 
@@ -218,8 +220,8 @@ def indexPage(request):
     return render(request, 'App/index.html', {})
 
 
+# @login_required
 def mainPage(request):
-    
 
     # vehicles=Vehicle.objects.filter().values_list("deliveryDate", flat=True)
     # vehicles=Vehicle.objects.filter().values("deliveryDate")
@@ -334,10 +336,16 @@ def mainPage(request):
     # Получение объекта Page для текущей страницы
     page = paginator.get_page(page_number)
 
+    # if user.is_authenticated-> 1-10 rows will be shown only
+    if not user.is_authenticated:
+        hideInfo="display: none;"
+    else:
+        hideInfo=''
 
-    return render(request, 'App/main.html', {'vehicles': vehicles, 'page': page, 'vehicle_models_names': vehicle_models_names, 'selected_filter': filter_vehicle_model, 'engine_models_names': engine_models_names, 'filter_engine_model': filter_engine_model, 'transmission_models_names': transmission_models_names, 'filter_transmission_model': filter_transmission_model, 'filter_driveAxle_model': filter_driveAxle_model, 'driveAxle_models_names': driveAxle_models_names, 'filter_steeringAxle_model': filter_steeringAxle_model, 'steeringAxle_models_names': steeringAxle_models_names, 'user': user})
+    return render(request, 'App/main.html', {'vehicles': vehicles, 'page': page, 'vehicle_models_names': vehicle_models_names, 'selected_filter': filter_vehicle_model, 'engine_models_names': engine_models_names, 'filter_engine_model': filter_engine_model, 'transmission_models_names': transmission_models_names, 'filter_transmission_model': filter_transmission_model, 'filter_driveAxle_model': filter_driveAxle_model, 'driveAxle_models_names': driveAxle_models_names, 'filter_steeringAxle_model': filter_steeringAxle_model, 'steeringAxle_models_names': steeringAxle_models_names, 'user': user, 'hideInfo': hideInfo})
 
 
+# @login_required
 def maintenancePage(request):
     user = request.user
 
@@ -399,6 +407,7 @@ def maintenancePage(request):
     return render(request, 'App/maintenance.html', {'user': user, 'maintenance_type': maintenance_type, 'vehicle_number': vehicle_number, 'service_company': service_company, 'filter_maintenance_type': filter_maintenance_type, 'filter_vehicle_number': filter_vehicle_number, 'filter_service_company': filter_service_company, 'maintenance': maintenance, 'page': page})
 
 
+# @login_required(login_url=html_404)
 def claimPage(request):
     user = request.user
 
@@ -455,9 +464,10 @@ def claimPage(request):
 
     # Получение объекта Page для текущей страницы
     page = paginator.get_page(page_number)
-    
 
-    return render(request, 'App/claimPage.html', {'user': user, 'malfunction_node': malfunction_node, 'reparing_method': reparing_method, 'service_company': service_company, 'filter_malfunction_node': filter_malfunction_node, 'filter_reparing_method': filter_reparing_method, 'filter_service_company': filter_service_company, 'claim': claim, 'page': page})
+    # highlightColor="background-color:#EBE6D6;"
+    
+    return render(request, 'App/claimPage.html', {'user': user, 'malfunction_node': malfunction_node, 'reparing_method': reparing_method, 'service_company': service_company, 'filter_malfunction_node': filter_malfunction_node, 'filter_reparing_method': filter_reparing_method, 'filter_service_company': filter_service_company, 'claim': claim, 'page': page,})
 
 
 
