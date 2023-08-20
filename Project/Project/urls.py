@@ -23,4 +23,6 @@ urlpatterns = [
 
     # add App urls patterns
     path('', include('App.urls')),
+
+    path("", include("Account.urls")),              # our application
 ]

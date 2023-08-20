@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'rest_framework', 
     'corsheaders',
     'App',
+    'Account',
     'drf_yasg', # for swagger
 
     # site in admin panel
@@ -164,3 +165,10 @@ CORS_ALLOWED_ORIGINS = [
 ]
 
 SITE_URL = "http://127.0.0.1:8000"
+
+# the first page after Authentication
+LOGIN_REDIRECT_URL = "/main"
+
+# the first page after log out
+LOGOUT_REDIRECT_URL = "/main"
+ACCOUNT_LOGOUT_REDIRECT_URL = "/main"

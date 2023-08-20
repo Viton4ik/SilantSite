@@ -25,9 +25,11 @@
         </div>
     </div>
 
-    <div class="headerAuthorization">
-        <button class="headerAuthorizationButton">Authorization</button>
-    </div>
+    {% if not request.user.is_authenticated %}
+      <button class="headerAuthorizationButton"><a href="{% url 'login' %}" >Log In</a></button>
+    {% else %}
+      <button class="headerAuthorizationButton"><a href="{% url 'logout' %}" >Log Out</a></button>
+    {% endif %}
   </header>
 
 

@@ -11,7 +11,7 @@
 
 {% block user %}
     <div class="user">
-       <div>Пользователь: <em>"{{user}}"</em></div> 
+       <div>Пользователь: <em>"{{user}}" (Роль: "{{role}}")</em></div> 
        <div>Информация о рекламациях вашей техники</div>
        <div>
             <a href="{% url 'mainPage' %}"><button class="tableChangeButtons">Машины</button></a>
@@ -58,11 +58,37 @@
     <div class="user">
         <div>таблица с данными (выдача результата)</div>
      </div>
+
+     <div class="vehicleModelRowInfo" >
+        <div class="user" style="padding: 50px 0px 50px 0px;">
+            таблица с данными (выдача результата)<span id="tableName"></span>
+        </div>
+        <table class="tableVehicles" >
+
+            <tr style="background-color: #163E6C">
+                <td style="text-align: center;">id</td>
+                <td style="text-align: center;">Наименование</td>
+                <td style="text-align: center;">Описание</td>
+            </tr>
+
+            <tr>
+                <td class="vehicleModelRowInfo_Id" style="text-align: center;"></td>
+                <td class="vehicleModelRowInfo_Name" style="text-align: center;"></td>
+                <td class="vehicleModelRowInfo_Description" style="text-align: center;"></td>
+            </tr>
+
+        </table>   
+        <div class="tableChangeButtonsContainer">
+            <button class="tableChangeButtons" id="closeInfoPanel">Close</button>
+        </div>
+        
+    </div>
 {% endblock filter %}
 
 
 {% block mainPage %}
 
+{% if request.user.is_authenticated %}
     {% if claim %}
     <div class="mainView">
         <table class="tableVehicles">
@@ -87,13 +113,13 @@
                         <td >{{ claim.vehicle }}</td>
                         <td >{{ claim.claimDate }}</td>
                         <td >{{ claim.operatingTime }}</td>
-                        <td class="malfunctionNodeRow">{{ claim.malfunctionNode }}</td>
+                        <td class="malfunctionNodeRow"><a href='#' onclick="on('{{ claim.malfunctionNode }}', 'malfunction_overview', 'Узел отказа')">{{ claim.malfunctionNode }}</a></td>
                         <td >{{ claim.malfunctionDescription }}</td>
-                        <td class="reparingMethodRow">{{ claim.reparingMethod }}</td>
+                        <td class="reparingMethodRow"><a href='#' onclick="on('{{ claim.reparingMethod }}', 'repairing_method', 'Способ восстановления')">{{ claim.reparingMethod }}</a></td>
                         <td >{{ claim.usedSpareParts }}</td>
                         <td>{{ claim.repairingDate }}</td>
                         <td >{{ claim.vehicleDowntime }}</td>
-                        <td class="serviceCompanyRow">{{ claim.serviceCompany }}</td>
+                        <td class="serviceCompanyRow"><a href='#' onclick="on('{{ claim.serviceCompany }}', 'service_company', 'Сервисная компания')">{{ claim.serviceCompany }}</a></td>
 
                 </tr>
         {% endfor %}
@@ -102,6 +128,10 @@
         <h2>No claims</h2>
     {% endif %}
     </div>
+{% else %} 
+<h2>Пожалуйста авторизируйтесь, чтобы получить доступ к данной информации</h2>
+{% endif %} 
+
     <script src="{% static 'js/claim.js' %}"></script>
 
 {% endblock mainPage %}

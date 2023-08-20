@@ -59,23 +59,28 @@ header {
     text-shadow: 4px 4px 4px #163E6C;
 }
 
-.headerAuthorization {
+/* .headerAuthorization {
     padding-top: 10px;
     
-}
+} */
 
 .headerAuthorizationButton {
     width: 150px;
     height: 40px;
+    /* padding-top: 10px; */
+    font-size: 18px;
+    font-family: 'PT Astra Sans Regular', serif;
+    text-align: center;
+    vertical-align: center;
     /* border-radius: 5px;
     border-color: #7a9cf3;
     background: #9eb9f0; */
     cursor: pointer;
-    font-family: 'PT Astra Sans Regular', serif;
     /* font-size: 18px;
     color: rgb(81, 88, 94); */
     border-radius: 30px;
-    font-size: 18px;
+    
+    /* font-size: 1vw 1hw; */
 
 
     --button-color-contrast: hsla(221, 100%, 78%, 1);
@@ -91,8 +96,8 @@ header {
     border-color: var(--button-color);
     background-color: transparent;
 
-    padding-left: 1.42857rem !important;
-    padding-right: 1.42857rem !important;
+    /* padding-left: 1.42857rem !important; */
+    /* padding-right: 1.42857rem !important; */
 
     color: var(--color) !important;
 }
@@ -235,12 +240,52 @@ footer {
     color: var(--color) !important;
 }
 
+
 .headerAuthorizationButton:hover, .tableChangeButtons:hover {
     /* background-color: var(--button-color-contrast); */
     /* background-color: #EBE6D6; */
     /* background-color: linear-gradient(#c9a938 0%, #a3904f 51%, #a09470 75%); */
     box-shadow: 4px 4px 4px var(--button-color-light);
     /* border-radius: 50px; */
+}
+
+.vehicleModelRowInfo {
+    position: fixed; /* Sit on top of the page content */
+    display: none; /* Hidden by default */
+    width: 80%; 
+    height: 80%; 
+    top: 10%;
+    left: 10%;
+    bottom: 0;
+    background: linear-gradient(rgb(241, 239, 239) 0%, #dfd6d6 51%, #e3ebfa 75%); 
+    z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
+    cursor: pointer; /* Add a pointer on hover */
+    border-radius: 20px;
+    box-shadow: 4px 4px 4px black;
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
+.tableChangeButtonsContainer {
+    display: flex; 
+    justify-content: flex-end;
+    margin-top: 100px;
+}
+
+.formContainer{
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    font-family: 'PT Astra Sans Regular';
+    font-size: 22px;
+}
+
+.formItemContainer {
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+
 }
 
 
@@ -259,7 +304,8 @@ footer {
     }
     .headerAuthorizationButton {
         width: 105px;
-        font-size: 16px;
+        font-size: 14px;
+        text-align: right;
     }
     /* header {
         padding: 20px 0px 0px 20px;
@@ -287,7 +333,7 @@ footer {
     }
     .headerAuthorizationButton {
         width: 90px;
-        font-size: 14px;
+        font-size: 10px;
     }
     /* header {
         padding: 20px 0px 0px 20px;
@@ -315,5 +361,8 @@ footer {
     }
     footer {
         font-size: 12px;
+    }
+    .headerAuthorizationButton {
+        font-size: 10px;
     }
 }

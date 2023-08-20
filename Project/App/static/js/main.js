@@ -26,7 +26,7 @@ const steeringAxleModelRow = document.querySelectorAll(".steeringAxleModelRow");
 // buttons elements
 const resetButtonFilterMain = document.querySelector("#resetButtonFilterMain");
 const buttonApplyFilterMain = document.querySelector("#buttonApplyFilterMain");
-
+const closeInfoPanelButton = document.querySelector("#closeInfoPanel");
 
 // reset button handler
 resetButtonFilterMain.addEventListener("click", function() {
@@ -86,64 +86,47 @@ if (steeringAxleModelFilter.value !== '') {
 } 
 
 
+function on(nameInfo, urlInfo, tableName) {
+
+    //show the block
+    document.querySelector('#tableName').textContent = `'${tableName}'`; 
+
+    //show the block
+    document.querySelector('.vehicleModelRowInfo').style.display = "block"; 
+    //
+    const url = `http://127.0.0.1:8000/api/catalog/${urlInfo}/`
+    // API handler
+    fetch(url)
+    .then((response) => {
+        const result = response.json()
+        return result;
+    })
+    .then((data) => {
+        // console.log('data.results',data.results)
+        
+        
+        data.results.map((item) => {
+            
+            // console.log('item.id',item.id)
+
+            if (item.name === nameInfo.toString().trim()) {
+                // fill the table
+                document.querySelector(".vehicleModelRowInfo_Id").textContent = item.id;
+                document.querySelector(".vehicleModelRowInfo_Name").textContent = item.name;
+                document.querySelector(".vehicleModelRowInfo_Description").textContent = item.description;
+            }
+            }
+        )
+    })
+    .catch(() => { console.log('error') })
+    
+}
 
 
-// vehicleModelFilter.addEventListener("change", function() {
-//     if (vehicleModelFilter.value !== '') {
-//         vehicleModelRow.style.border = '2px solid #D20A11'; 
-//         vehicleModelRow_.style.border = '2px solid #D20A11'; 
-//         // vehicleModelRow.classList.add("vehicleModelRow");
-//     } 
-//     // else {
-//     // vehicleModelRow.style.border = 'none';
-//     // }
-
-// });
+// closePanel button handler
+closeInfoPanelButton.addEventListener("click", function() {
+    //hide the block
+    document.querySelector('.vehicleModelRowInfo').style.display = "none"; 
+});
 
 
-
-// buttonApplyFilterMain.addEventListener("click", function() {
-//     if (vehicleModelFilter.value !== '') {
-//         vehicleModelRow.style.border = '2px solid #D20A11'; 
-//         vehicleModelRow_.style.border = '2px solid #D20A11'; 
-//     } 
-//     // else {
-//     // vehicleModelRow.style.border = 'none';
-//     // }
-
-// });
-
-
-
-
-    // // API handler
-    // // retrieve the existing object from the server
-    // fetch(`http://127.0.0.1:8000/chat/api-auth/room/${button.id}/`)
-    // .then(response => response.json())
-    // .then(object => {
-    //     // modify the necessary attribute value
-    //     // object.name = prompt(`new a name for the room '${object.name}'`)
-    //     object.name = newRoomName
-    //     // refresh the name of the room on the page
-    //     roomNameDisplay.textContent = `'${newRoomName}'`
-    //     // send the updated object back to the server
-    //     fetch(`http://127.0.0.1:8000/chat/api-auth/room/${button.id}/`, {
-    //     method: 'PUT',
-    //     headers: {
-    //         'Content-Type': 'application/json',
-    //         'X-CSRFToken': csrf_token(),
-    //     },
-    //     body: JSON.stringify(object),
-    //     })
-    //     .then(response => {
-    //     if (response.ok) {
-    //         console.log('Object updated successfully')
-    //         // refresh the page
-    //         // location.reload()
-    //     } else {
-    //         console.log('Object update failed')
-    //     }
-    //     })
-    //     .catch(error => console.log('Error:', error))
-    // })
-    // .catch(error => console.log('Error:', error))

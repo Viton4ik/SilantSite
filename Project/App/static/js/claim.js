@@ -22,6 +22,7 @@ filterHandler (serviceCompanylFilter, serviceCompanyRowName, serviceCompanyRow)
 // buttons elements
 const resetButtonFilterMain = document.querySelector("#resetButtonFilterMain");
 const buttonApplyFilterMain = document.querySelector("#buttonApplyFilterMain");
+const closeInfoPanelButton = document.querySelector("#closeInfoPanel");
 
 
 // reset button handler
@@ -44,4 +45,45 @@ function filterHandler (filter, rowName, row) {
     } 
 }
 
+function on(nameInfo, urlInfo, tableName) {
 
+    //show the block
+    document.querySelector('#tableName').textContent = `'${tableName}'`; 
+
+    //show the block
+    document.querySelector('.vehicleModelRowInfo').style.display = "block"; 
+    //
+    const url = `http://127.0.0.1:8000/api/catalog/${urlInfo}/`
+    // API handler
+    fetch(url)
+    .then((response) => {
+        const result = response.json()
+        return result;
+    })
+    .then((data) => {
+        // console.log('data.results',data.results)
+        
+        
+        data.results.map((item) => {
+            
+            // console.log('item.id',item.id)
+
+            if (item.name === nameInfo.toString().trim()) {
+                // fill the table
+                document.querySelector(".vehicleModelRowInfo_Id").textContent = item.id;
+                document.querySelector(".vehicleModelRowInfo_Name").textContent = item.name;
+                document.querySelector(".vehicleModelRowInfo_Description").textContent = item.description;
+            }
+            }
+        )
+    })
+    .catch(() => { console.log('error') })
+    
+}
+
+
+// closePanel button handler
+closeInfoPanelButton.addEventListener("click", function() {
+    //hide the block
+    document.querySelector('.vehicleModelRowInfo').style.display = "none"; 
+});

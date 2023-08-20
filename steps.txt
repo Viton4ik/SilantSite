@@ -84,6 +84,9 @@ pip install django-filter
      'django.contrib.sites', has to be added to settings.py -> INSTALLED_APPS
     - SITE_ID = 1  # allauth, flatpages, site
 
+1.16 Accounts
+    - cd Project (root folder)
+    - python manage.py startapp Account
 
 2. FrontEnd
 
@@ -99,3 +102,8 @@ pip install django-filter
 2.5. header&footer created (for the default page)
 
 2.6 Main/ТО/Рекламация Table created
+
+2.7. Tables visibility according to the access rights 
+
+2.8 Extra info about dictionaries created
+

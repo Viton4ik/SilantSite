@@ -1,7 +1,7 @@
 
 from django.urls import path, include
 
-from .views import html_404, indexPage, mainPage, maintenancePage, claimPage
+from .views import html_404, indexPage, mainPage, maintenancePage, claimPage, vehicle_create
 
 # rest_framework
 from rest_framework import routers
@@ -80,6 +80,9 @@ urlpatterns = [
     path('main/', mainPage, name='mainPage'),
     path('maintenance/', maintenancePage, name='maintenancePage'),
     path('claim/', claimPage, name='claimPage'),
+
     path('404/', html_404, name='html_404'),
+
+    path('vehicle_create/', vehicle_create, name='vehicle_create'),
 
 ]

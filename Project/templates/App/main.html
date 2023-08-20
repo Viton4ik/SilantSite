@@ -11,7 +11,7 @@
 
 {% block user %}
     <div class="user">
-       <div>Пользователь: <em>"{{user}}"</em></div> 
+       <div>Пользователь: <em>"{{user}}" (Роль: "{{role}}")</em></div> 
        <div>Информация о комплектации и технических характеристиках вашей техники</div>
        <div>
             <a href="{% url 'mainPage' %}"><button class="tableChangeButtons" style="background-color:#EBE6D6;">Машины</button></a>
@@ -84,6 +84,32 @@
     <div class="user">
         <div>таблица с данными (выдача результата)</div>
      </div>
+
+     <div class="vehicleModelRowInfo" >
+        <div class="user" style="padding: 50px 0px 50px 0px;">
+            таблица с данными (выдача результата)<span id="tableName"></span>
+        </div>
+        <table class="tableVehicles" >
+
+            <tr style="background-color: #163E6C">
+                <td style="text-align: center;">id</td>
+                <td style="text-align: center;">Наименование</td>
+                <td style="text-align: center;">Описание</td>
+            </tr>
+
+            <tr>
+                <td class="vehicleModelRowInfo_Id" style="text-align: center;"></td>
+                <td class="vehicleModelRowInfo_Name" style="text-align: center;"></td>
+                <td class="vehicleModelRowInfo_Description" style="text-align: center;"></td>
+            </tr>
+
+        </table>   
+        <div class="tableChangeButtonsContainer">
+            <button class="tableChangeButtons" id="closeInfoPanel">Close</button>
+        </div>
+        
+    </div>
+
 {% endblock filter %}
 
 
@@ -114,21 +140,22 @@
                 <td style="text-align: center; {{ hideInfo }}">Клиент</td>
                 <td style="text-align: center; {{ hideInfo }}">Сервисная компания</td>
             </tr>
+
         
             <!-- {# % endif % #}  -->
         {% for vehicle in page %}
 
                 <tr style="background-color:{% cycle 'white' '#EBE6D6' %}; text-align: center;">
 
-                        <td>{{ vehicle.vehicleNumber }}</td>
-                        <td class="vehicleModelRow">{{ vehicle.vehicleModel }}</td>
-                        <td class="engineModelRow">{{ vehicle.engineModel }}</td>
+                        <td >{{ vehicle.vehicleNumber }}</td>
+                        <td id="vehicle_id-{{ vehicle.id }}" class="vehicleModelRow" ><a href='#' onclick="on('{{ vehicle.vehicleModel }}', 'vehicle_model', 'Модель техники')">{{ vehicle.vehicleModel }}</a></td>
+                        <td id="vehicle_id-{{ vehicle.id }}" class="engineModelRow"><a href='#' onclick="on('{{ vehicle.engineModel }}', 'engine_model' , 'Модель двигателя')">{{ vehicle.engineModel }}</a></td>
                         <td>{{ vehicle.engineNumber }}</td>
-                        <td class="transmissionModelRow">{{ vehicle.transmissionModel }}</td>
+                        <td class="transmissionModelRow"><a href='#' onclick="on('{{ vehicle.transmissionModel }}', 'transmission_model' , 'Модель трансмиссии')">{{ vehicle.transmissionModel }}</a></td>
                         <td>{{ vehicle.transmissionNumber }}</td>
-                        <td class="driveAxleModelRow">{{ vehicle.driveAxleModel }}</td>
-                        <td>{{ vehicle.driveAxleNumber }}</td>
-                        <td class="steeringAxleModelRow">{{ vehicle.steeringAxleModel }}</td>
+                        <td class="driveAxleModelRow"><a href='#' onclick="on('{{ vehicle.driveAxleModel }}', 'drive_axle_model' , 'Модель ведущего моста')">{{ vehicle.driveAxleModel }}</td>
+                        <td>{{ vehicle.driveAxleNumber }}</a></td>
+                        <td class="steeringAxleModelRow"><a href='#' onclick="on('{{ vehicle.steeringAxleModel }}', 'steering_axle_model' , 'Модель управляемого моста')">{{ vehicle.steeringAxleModel }}</a></td>
                         <td>{{ vehicle.steeringAxleNumber }}</td>
                         <td style="{{ hideInfo }}">{{ vehicle.deliveryContract_N_data }}</td>
                         <td style="{{ hideInfo }}">{{ vehicle.deliveryDate }}</td>

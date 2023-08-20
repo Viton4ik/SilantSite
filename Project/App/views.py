@@ -1,8 +1,12 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 from django.contrib.auth.models import User
 
 from django.core.paginator import Paginator
+
+from Account.models import User_Auth
+
+from .forms import *
 
 from django.contrib.auth.decorators import login_required, permission_required
 
@@ -342,7 +346,10 @@ def mainPage(request):
     else:
         hideInfo=''
 
-    return render(request, 'App/main.html', {'vehicles': vehicles, 'page': page, 'vehicle_models_names': vehicle_models_names, 'selected_filter': filter_vehicle_model, 'engine_models_names': engine_models_names, 'filter_engine_model': filter_engine_model, 'transmission_models_names': transmission_models_names, 'filter_transmission_model': filter_transmission_model, 'filter_driveAxle_model': filter_driveAxle_model, 'driveAxle_models_names': driveAxle_models_names, 'filter_steeringAxle_model': filter_steeringAxle_model, 'steeringAxle_models_names': steeringAxle_models_names, 'user': user, 'hideInfo': hideInfo})
+    role_id = User_Auth.objects.filter(user_auth__username=user).values('role_auth')[0]['role_auth']
+    role = Role.objects.get(id=role_id)
+
+    return render(request, 'App/main.html', {'vehicles': vehicles, 'page': page, 'vehicle_models_names': vehicle_models_names, 'selected_filter': filter_vehicle_model, 'engine_models_names': engine_models_names, 'filter_engine_model': filter_engine_model, 'transmission_models_names': transmission_models_names, 'filter_transmission_model': filter_transmission_model, 'filter_driveAxle_model': filter_driveAxle_model, 'driveAxle_models_names': driveAxle_models_names, 'filter_steeringAxle_model': filter_steeringAxle_model, 'steeringAxle_models_names': steeringAxle_models_names, 'user': user, 'hideInfo': hideInfo, 'role':role})
 
 
 # @login_required
@@ -402,9 +409,12 @@ def maintenancePage(request):
 
     # Получение объекта Page для текущей страницы
     page = paginator.get_page(page_number)
+
+    role_id = User_Auth.objects.filter(user_auth__username=user).values('role_auth')[0]['role_auth']
+    role = Role.objects.get(id=role_id)
     
 
-    return render(request, 'App/maintenance.html', {'user': user, 'maintenance_type': maintenance_type, 'vehicle_number': vehicle_number, 'service_company': service_company, 'filter_maintenance_type': filter_maintenance_type, 'filter_vehicle_number': filter_vehicle_number, 'filter_service_company': filter_service_company, 'maintenance': maintenance, 'page': page})
+    return render(request, 'App/maintenance.html', {'user': user, 'maintenance_type': maintenance_type, 'vehicle_number': vehicle_number, 'service_company': service_company, 'filter_maintenance_type': filter_maintenance_type, 'filter_vehicle_number': filter_vehicle_number, 'filter_service_company': filter_service_company, 'maintenance': maintenance, 'page': page, 'role':role})
 
 
 # @login_required(login_url=html_404)
@@ -465,11 +475,23 @@ def claimPage(request):
     # Получение объекта Page для текущей страницы
     page = paginator.get_page(page_number)
 
-    # highlightColor="background-color:#EBE6D6;"
+    clients = Client.objects.all()
+    print('clients:', clients)
+
+    role_id = User_Auth.objects.filter(user_auth__username=user).values('role_auth')[0]['role_auth']
+    role = Role.objects.get(id=role_id)
     
-    return render(request, 'App/claimPage.html', {'user': user, 'malfunction_node': malfunction_node, 'reparing_method': reparing_method, 'service_company': service_company, 'filter_malfunction_node': filter_malfunction_node, 'filter_reparing_method': filter_reparing_method, 'filter_service_company': filter_service_company, 'claim': claim, 'page': page,})
+    return render(request, 'App/claimPage.html', {'user': user, 'malfunction_node': malfunction_node, 'reparing_method': reparing_method, 'service_company': service_company, 'filter_malfunction_node': filter_malfunction_node, 'filter_reparing_method': filter_reparing_method, 'filter_service_company': filter_service_company, 'claim': claim, 'page': page, 'clients': clients, 'role':role})
 
 
-
-
+def vehicle_create(request):
+    if request.method == 'POST':
+        form = VehicleForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('mainPage')  # Перенаправьте на страницу успешного завершения
+    else:
+        form = VehicleForm()
+    
+    return render(request, 'App/vehicle_create.html', {'form': form})
 

@@ -11,7 +11,7 @@
 
 {% block user %}
     <div class="user">
-       <div>Пользователь: <em>"{{user}}"</em></div> 
+       <div>Пользователь: <em>"{{user}}" (Роль: "{{role}}")</em></div> 
        <div>Информация о проведенных ТО вашей техники</div>
        <div>
             <a href="{% url 'mainPage' %}"><button class="tableChangeButtons">Машины</button></a>
@@ -58,12 +58,39 @@
     <div class="user">
         <div>таблица с данными (выдача результата)</div>
      </div>
+
+     <div class="vehicleModelRowInfo" >
+        <div class="user" style="padding: 50px 0px 50px 0px;">
+            таблица с данными (выдача результата)<span id="tableName"></span>
+        </div>
+        <table class="tableVehicles" >
+
+            <tr style="background-color: #163E6C">
+                <td style="text-align: center;">id</td>
+                <td style="text-align: center;">Наименование</td>
+                <td style="text-align: center;">Описание</td>
+            </tr>
+
+            <tr>
+                <td class="vehicleModelRowInfo_Id" style="text-align: center;"></td>
+                <td class="vehicleModelRowInfo_Name" style="text-align: center;"></td>
+                <td class="vehicleModelRowInfo_Description" style="text-align: center;"></td>
+            </tr>
+
+        </table>   
+        <div class="tableChangeButtonsContainer">
+            <button class="tableChangeButtons" id="closeInfoPanel">Close</button>
+        </div>
+        
+    </div>
 {% endblock filter %}
 
 
 {% block mainPage %}
 
+{% if request.user.is_authenticated %}
     {% if maintenance %}
+    
     <div class="mainView">
         <table class="tableVehicles">
 
@@ -83,13 +110,13 @@
                 <tr style="background-color:{% cycle 'white' '#EBE6D6' %}; text-align: center;">
 
                         <td class="vehicleNumberRow">{{ maintenance.vehicle }}</td>
-                        <td class="maintenanceTypeRow">{{ maintenance.maintenanceType }}</td>
+                        <td class="maintenanceTypeRow"><a href='#' onclick="on('{{ maintenance.maintenanceType }}', 'maintenance_type', 'Вид ТО')">{{ maintenance.maintenanceType }}</a></td>
                         <td >{{ maintenance.maintenanceDate }}</td>
                         <td>{{ maintenance.operatingTime }}</td>
                         <td >{{ maintenance.workOrderNumber }}</td>
                         <td>{{ maintenance.workOrderDate }}</td>
                         <td >{{ maintenance.maintenanceCompany }}</td>
-                        <td class="serviceCompanyRow">{{ maintenance.serviceCompany }}</td>
+                        <td class="serviceCompanyRow"><a href='#' onclick="on('{{ maintenance.serviceCompany }}', 'service_company', 'Сервисная компания')">{{ maintenance.serviceCompany }}</a></td>
 
                 </tr>
         {% endfor %}
@@ -98,6 +125,10 @@
         <h2>No maintenance</h2>
     {% endif %}
     </div>
+{% else %} 
+    <h2>Пожалуйста авторизируйтесь, чтобы получить доступ к данной информации</h2>
+{% endif %} 
+
     <script src="{% static 'js/maintenance.js' %}"></script>
 
 {% endblock mainPage %}
