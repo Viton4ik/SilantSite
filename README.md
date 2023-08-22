@@ -37,8 +37,16 @@
 git clone https://github.com/Viton4ik/SilantSite.git
 
 ```
-- Создайте виртуальную среду
+- Перейдите в папку SilantSite
+```sh
+cd SilantSite
+```
+- Создайте виртуальную среду  для Windows:
 
+```sh
+python -m venv venv
+```
+- Создайте виртуальную среду  для Linux:
 ```sh
 python3 -m venv venv
 ```
