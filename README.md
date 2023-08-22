@@ -74,7 +74,7 @@ python3 manage.py runserver
 ## Views
 
 <img src="https://img.shields.io/static/v1?label=1&message=localhost&color=9cf"/>
-<h3 align="center"><img src="https://github.com/Viton4ik/SilantSite/blob/master/pic/127.0.0.1%3A8000.png"/></h3> 
+<h3 align="center"><img src="https://github.com/Viton4ik/SilantSite/blob/master/pic/localhost.png"/></h3> 
 
 <img src="https://img.shields.io/static/v1?label=2&message=main&color=9cf"/>
 <h3 align="center"><img src="https://github.com/Viton4ik/SilantSite/blob/master/pic/main.png"/></h3> 
