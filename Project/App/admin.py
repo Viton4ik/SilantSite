@@ -55,11 +55,6 @@ class MaintenanceAdmin(admin.ModelAdmin):
 class ClaimsAdmin(admin.ModelAdmin):
     list_display = [field.name for field in Claims._meta.get_fields()]
 
-# class VehicleInline(admin.TabularInline):
-#     ''' to get mamyToMany objects'''
-#     model = Vehicle.files.through  # указываем промежуточную модель
-#     extra = 1  # количество дополнительных строк для добавления файлов
-
 
 # Catalogs
 admin.site.register(VehicleModel, VehicleModelAdmin)

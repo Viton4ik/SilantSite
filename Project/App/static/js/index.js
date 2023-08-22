@@ -6,8 +6,6 @@ let currentIndex = 0;
 function changeImage() {
     rotatingImage.src = images[currentIndex];
     currentIndex = Math.floor(Math.random() * images.length);
-
-    // currentIndex = (currentIndex + 1) % images.length;
 }
 
 setInterval(changeImage, 3000);

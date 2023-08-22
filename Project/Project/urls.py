@@ -26,3 +26,4 @@ urlpatterns = [
 
     path("", include("Account.urls")),              # our application
 ]
+

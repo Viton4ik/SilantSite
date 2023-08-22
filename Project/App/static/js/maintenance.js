@@ -37,7 +37,6 @@ filterHandler (vehicleNumberFilter, vehicleNumberRowName, vehicleNumberRow)
 // service_company filter
 filterHandler (serviceCompanylFilter, serviceCompanyRowName, serviceCompanyRow)
 
-
 //filter handler function
 function filterHandler (filter, rowName, row) {
     if (filter.value !== '') {
@@ -50,13 +49,9 @@ function filterHandler (filter, rowName, row) {
     } 
 }
 
-
-
 function on(nameInfo, urlInfo, tableName) {
-
     //show the block
     document.querySelector('#tableName').textContent = `'${tableName}'`; 
-
     //show the block
     document.querySelector('.vehicleModelRowInfo').style.display = "block"; 
     //
@@ -68,14 +63,8 @@ function on(nameInfo, urlInfo, tableName) {
         return result;
     })
     .then((data) => {
-        // console.log('data.results',data.results)
-        
-        
         data.results.map((item) => {
-            
-            // console.log('item.id',item.id)
-
-            if (item.name === nameInfo.toString().trim()) {
+             if (item.name === nameInfo.toString().trim()) {
                 // fill the table
                 document.querySelector(".vehicleModelRowInfo_Id").textContent = item.id;
                 document.querySelector(".vehicleModelRowInfo_Name").textContent = item.name;
@@ -87,7 +76,6 @@ function on(nameInfo, urlInfo, tableName) {
     .catch(() => { console.log('error') })
     
 }
-
 
 // closePanel button handler
 closeInfoPanelButton.addEventListener("click", function() {

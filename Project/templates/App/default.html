@@ -10,28 +10,24 @@
 
   <header>
     <div>
-        <!-- <img src="{% static 'assets/img/Logotype RGB 1.jpg' %}" alt="indexLogo" width="130px" height="100px"/> -->
         <img class="logo" src="{% static 'assets/img/photo.svg' %}"  alt="indexLogo" />
-        
     </div>
 
     <div class="headerInfo">
         <div >
             +7-8352-20-12-09, telegram
         </div>
-            
         <div class="headerInfoText">
             Электронная сервисная книжка "Мой Силант"
         </div>
     </div>
 
     {% if not request.user.is_authenticated %}
-      <button class="headerAuthorizationButton"><a href="{% url 'login' %}" >Log In</a></button>
+    <a href="{% url 'login' %}" ><button class="headerAuthorizationButton">Log In</button></a>
     {% else %}
-      <button class="headerAuthorizationButton"><a href="{% url 'logout' %}" >Log Out</a></button>
+    <a href="{% url 'logout' %}" ><button class="headerAuthorizationButton">Log Out</button></a>
     {% endif %}
   </header>
-
 
   <body>
     {% block user %}{% endblock user %} 
@@ -39,9 +35,7 @@
     {% block index %}{% endblock index %}
     {% block mainPage %}{% endblock mainPage %}
     {% block pagination %}{% endblock pagination %}
-  
   </body>
-
 
   <footer>
     <div>

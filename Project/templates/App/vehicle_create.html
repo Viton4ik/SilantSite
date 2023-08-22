@@ -57,9 +57,13 @@
 
             </tr>
         </table>   
-
-        <button class="tableChangeButtons" type="submit">Submit</button>
+        <div class="tableChangeButtonsContainer" style="margin-top: 20px;">
+            <button class="tableChangeButtons" type="submit">Submit</button>
+        </div>
     </form>
+    <div class="tableChangeButtonsContainer" style="margin-top: 20px;">
+        <a href="{% url 'mainPage' %}"><button class="tableChangeButtons">Cancel</button></a>
+    </div>
 </body>
 </html>
 {% endblock user %} 

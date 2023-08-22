@@ -62,12 +62,7 @@ function on(nameInfo, urlInfo, tableName) {
     })
     .then((data) => {
         // console.log('data.results',data.results)
-        
-        
         data.results.map((item) => {
-            
-            // console.log('item.id',item.id)
-
             if (item.name === nameInfo.toString().trim()) {
                 // fill the table
                 document.querySelector(".vehicleModelRowInfo_Id").textContent = item.id;
@@ -78,9 +73,7 @@ function on(nameInfo, urlInfo, tableName) {
         )
     })
     .catch(() => { console.log('error') })
-    
 }
-
 
 // closePanel button handler
 closeInfoPanelButton.addEventListener("click", function() {

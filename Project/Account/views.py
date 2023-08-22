@@ -13,8 +13,6 @@ def logout_view(request):
     return redirect('mainPage')
 
 
-
-
 def login_view(request):
     if request.method == 'POST':
         form = LoginForm(request.POST)

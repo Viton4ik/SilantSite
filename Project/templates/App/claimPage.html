@@ -11,12 +11,29 @@
 
 {% block user %}
     <div class="user">
-       <div>Пользователь: <em>"{{user}}" (Роль: "{{role}}")</em></div> 
+       <div>Пользователь: <em>"{{user}}" (Роль: "{{role}}"
+        {% if client_name %}
+        , Клиент: "{{client_name}}" 
+        {% endif %} 
+        {% if serviceCompany__name %}
+        , Сервисная компания: "{{serviceCompany__name}}"
+        {% endif %} 
+        )</em></div> 
        <div>Информация о рекламациях вашей техники</div>
        <div>
             <a href="{% url 'mainPage' %}"><button class="tableChangeButtons">Машины</button></a>
             <a href="{% url 'maintenancePage' %}"><button class="tableChangeButtons">Техническое обслуживание</button></a>    
             <a href="{% url 'claimPage' %}"><button class="tableChangeButtons" style="background-color:#EBE6D6;">Рекламации</button></a>    
+
+            {% if request.user.is_authenticated %}
+                {% if not role_error or request.user.is_superuser %}
+                    {% if manager or request.user.is_superuser %}
+                        {% if self.url is claimPage %}
+                            <a href="{% url 'claim_create' %}"><button class="tableChangeButtons">Создать рекламацию</button></a>    
+                        {% endif %} 
+                    {% endif %} 
+                {% endif %} 
+            {% endif %} 
        </div>
     </div>
 
@@ -94,6 +111,7 @@
         <table class="tableVehicles">
 
             <tr style="background-color: #163E6C">
+                <td style="text-align: center;">№ записи</td>
                 <td style="text-align: center;">Зав. № машины</td>
                 <td style="text-align: center;">Дата отказа</td>
                 <td style="text-align: center;">Наработка, м/час</td>
@@ -108,20 +126,31 @@
         
         {% for claim in page %}
 
-                <tr style="background-color:{% cycle 'white' '#EBE6D6' %}; text-align: center;">
+            <tr style="background-color:{% cycle 'white' '#EBE6D6' %}; text-align: center;">
 
-                        <td >{{ claim.vehicle }}</td>
-                        <td >{{ claim.claimDate }}</td>
-                        <td >{{ claim.operatingTime }}</td>
-                        <td class="malfunctionNodeRow"><a href='#' onclick="on('{{ claim.malfunctionNode }}', 'malfunction_overview', 'Узел отказа')">{{ claim.malfunctionNode }}</a></td>
-                        <td >{{ claim.malfunctionDescription }}</td>
-                        <td class="reparingMethodRow"><a href='#' onclick="on('{{ claim.reparingMethod }}', 'repairing_method', 'Способ восстановления')">{{ claim.reparingMethod }}</a></td>
-                        <td >{{ claim.usedSpareParts }}</td>
-                        <td>{{ claim.repairingDate }}</td>
-                        <td >{{ claim.vehicleDowntime }}</td>
-                        <td class="serviceCompanyRow"><a href='#' onclick="on('{{ claim.serviceCompany }}', 'service_company', 'Сервисная компания')">{{ claim.serviceCompany }}</a></td>
+                {% if not role_error or request.user.is_superuser %}
+                    {% if manager or request.user.is_superuser %}
+                        <td style="box-shadow: 1px 1px 1px black;" >
+                            <a href="{% url 'claim_edit' pk=claim.id %}">{{ claim.id }}</a>
+                        </td> 
+                    {% else %}
+                        <td>{{ claim.id  }}</td>
+                    {% endif %}
+                {% else %}
+                    <td>{{ claim.id  }}</td>
+                {% endif %}
+                <td >{{ claim.vehicle }}</td>
+                <td >{{ claim.claimDate }}</td>
+                <td >{{ claim.operatingTime }}</td>
+                <td class="malfunctionNodeRow"><a href='#' onclick="on('{{ claim.malfunctionNode }}', 'malfunction_overview', 'Узел отказа')">{{ claim.malfunctionNode }}</a></td>
+                <td >{{ claim.malfunctionDescription }}</td>
+                <td class="reparingMethodRow"><a href='#' onclick="on('{{ claim.reparingMethod }}', 'repairing_method', 'Способ восстановления')">{{ claim.reparingMethod }}</a></td>
+                <td >{{ claim.usedSpareParts }}</td>
+                <td>{{ claim.repairingDate }}</td>
+                <td >{{ claim.vehicleDowntime }}</td>
+                <td class="serviceCompanyRow"><a href='#' onclick="on('{{ claim.serviceCompany }}', 'service_company', 'Сервисная компания')">{{ claim.serviceCompany }}</a></td>
 
-                </tr>
+            </tr>
         {% endfor %}
         </table>   
     {% else %}

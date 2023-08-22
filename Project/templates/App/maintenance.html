@@ -11,12 +11,28 @@
 
 {% block user %}
     <div class="user">
-       <div>Пользователь: <em>"{{user}}" (Роль: "{{role}}")</em></div> 
+       <div>Пользователь: <em>"{{user}}" (Роль: "{{role}}"
+        {% if client_name %}
+        , Клиент: "{{client_name}}" 
+        {% endif %} 
+        {% if serviceCompany__name %}
+        , Сервисная компания: "{{serviceCompany__name}}"
+        {% endif %} 
+        )</em></div> 
        <div>Информация о проведенных ТО вашей техники</div>
        <div>
             <a href="{% url 'mainPage' %}"><button class="tableChangeButtons">Машины</button></a>
             <a href="{% url 'maintenancePage' %}"><button class="tableChangeButtons" style="background-color:#EBE6D6;">Техническое обслуживание</button></a>    
             <a href="{% url 'claimPage' %}"><button class="tableChangeButtons">Рекламации</button></a>    
+
+            {% if request.user.is_authenticated %}
+                {% if not role_error or request.user.is_superuser %}
+                    {% if self.url is maintenancePage %}
+                        <a href="{% url 'maintenance_create' %}"><button class="tableChangeButtons">Создать ТО</button></a>    
+                    {% endif %} 
+                {% endif %} 
+            {% endif %} 
+            
         </div>
     </div>
 
@@ -95,6 +111,7 @@
         <table class="tableVehicles">
 
             <tr style="background-color: #163E6C">
+                <td style="text-align: center;">№ записи</td>
                 <td id="vehicleNumberRowName" style="text-align: center;">Зав. № машины</td>
                 <td id="maintenanceTypeRowName" style="text-align: center;">Вид ТО</td>
                 <td style="text-align: center;">Дата проведения ТО</td>
@@ -107,18 +124,25 @@
         
         {% for maintenance in page %}
 
-                <tr style="background-color:{% cycle 'white' '#EBE6D6' %}; text-align: center;">
+            <tr style="background-color:{% cycle 'white' '#EBE6D6' %}; text-align: center;">
 
-                        <td class="vehicleNumberRow">{{ maintenance.vehicle }}</td>
-                        <td class="maintenanceTypeRow"><a href='#' onclick="on('{{ maintenance.maintenanceType }}', 'maintenance_type', 'Вид ТО')">{{ maintenance.maintenanceType }}</a></td>
-                        <td >{{ maintenance.maintenanceDate }}</td>
-                        <td>{{ maintenance.operatingTime }}</td>
-                        <td >{{ maintenance.workOrderNumber }}</td>
-                        <td>{{ maintenance.workOrderDate }}</td>
-                        <td >{{ maintenance.maintenanceCompany }}</td>
-                        <td class="serviceCompanyRow"><a href='#' onclick="on('{{ maintenance.serviceCompany }}', 'service_company', 'Сервисная компания')">{{ maintenance.serviceCompany }}</a></td>
+                {% if not role_error or request.user.is_superuser %}
+                    <td style="box-shadow: 1px 1px 1px black;" >
+                        <a href="{% url 'maintenance_edit' pk=maintenance.id %}">{{ maintenance.id }}</a>
+                    </td> 
+                {% else %} 
+                    <td>{{ maintenance.id }}</td> 
+                {% endif %} 
+                <td class="vehicleNumberRow">{{ maintenance.vehicle }}</td>
+                <td class="maintenanceTypeRow"><a href='#' onclick="on('{{ maintenance.maintenanceType }}', 'maintenance_type', 'Вид ТО')">{{ maintenance.maintenanceType }}</a></td>
+                <td >{{ maintenance.maintenanceDate }}</td>
+                <td>{{ maintenance.operatingTime }}</td>
+                <td >{{ maintenance.workOrderNumber }}</td>
+                <td>{{ maintenance.workOrderDate }}</td>
+                <td >{{ maintenance.maintenanceCompany }}</td>
+                <td class="serviceCompanyRow"><a href='#' onclick="on('{{ maintenance.serviceCompany }}', 'service_company', 'Сервисная компания')">{{ maintenance.serviceCompany }}</a></td>
 
-                </tr>
+            </tr>
         {% endfor %}
         </table>   
     {% else %}

@@ -11,12 +11,30 @@
 
 {% block user %}
     <div class="user">
-       <div>Пользователь: <em>"{{user}}" (Роль: "{{role}}")</em></div> 
+       <div>Пользователь: <em>"{{user}}" (Роль: "{{role}}" 
+        {% if client_name %}
+        , Клиент: "{{client_name}}" 
+        {% endif %} 
+        {% if serviceCompany__name %}
+        , Сервисная компания: "{{serviceCompany__name}}"
+        {% endif %} 
+        )</em></div> 
        <div>Информация о комплектации и технических характеристиках вашей техники</div>
        <div>
             <a href="{% url 'mainPage' %}"><button class="tableChangeButtons" style="background-color:#EBE6D6;">Машины</button></a>
             <a href="{% url 'maintenancePage' %}"><button class="tableChangeButtons">Техническое обслуживание</button></a>    
-            <a href="{% url 'claimPage' %}"><button class="tableChangeButtons">Рекламации</button></a>    
+            <a href="{% url 'claimPage' %}"><button class="tableChangeButtons">Рекламации</button></a>   
+
+            {% if request.user.is_authenticated %}
+                {% if not role_error or request.user.is_superuser %}
+                    {% if manager or request.user.is_superuser %}
+                        {% if self.url is mainPage %}
+                            <a href="{% url 'vehicle_create' %}"><button class="tableChangeButtons">Создать машину</button></a>    
+                        {% endif %} 
+                    {% endif %} 
+                {% endif %} 
+            {% endif %} 
+
         </div>
     </div>
 
@@ -34,7 +52,6 @@
                     <option value="{{ model }}" {% if model == selected_filter %}selected{% endif %}>{{ model }}</option>
                 {% endfor %}
             </select>
-            <!-- <div class="divider"> | </div> -->
 
             <label for="engine_model"> &nbsp;Модель двигателя: </label>
             <select name="engine_model" id="engine_model">
@@ -51,7 +68,6 @@
                     <option value="{{ model }}" {% if model == filter_transmission_model %}selected{% endif %}>{{ model }}</option>
                 {% endfor %}
             </select>
-
 
             <label for="driveAxle_model"> &nbsp;Модель ведущего моста: </label>
             <select name="driveAxle_model" id="driveAxle_model">
@@ -70,16 +86,9 @@
             </select>
 
             &nbsp;<button class="filterButtons" id="buttonApplyFilterMain" type="submit">Применить фильтр</button>
-            <!-- <button type="submit" name="resetFilterButton" value="True">Сбросить фильтр</button> -->
-            <!-- <input id="resetButtonFilterMain" type="reset" value="Сбросить фильтр"> -->
             &nbsp;<button class="filterButtons" id="resetButtonFilterMain">Сбросить фильтр</button>
         </form>
-<!--         
-        <ul>
-            {% for vehicle in vehicles %}
-                <li>{{ vehicle.vehicleModel }} - {{ vehicle.other_fields }}</li>
-            {% endfor %}
-        </ul> -->
+
     </div>
     <div class="user">
         <div>таблица с данными (выдача результата)</div>
@@ -119,8 +128,6 @@
     <div class="mainView">
         <table class="tableVehicles">
 
-            <!-- {# % if request.user.is_authenticated % #} -->
-
             <tr style="background-color: #163E6C">
                 <td style="text-align: center;">Зав. № машины</td>
                 <td id="vehicleModelRowName" style="text-align: center;">Модель техники</td>
@@ -141,31 +148,43 @@
                 <td style="text-align: center; {{ hideInfo }}">Сервисная компания</td>
             </tr>
 
-        
-            <!-- {# % endif % #}  -->
         {% for vehicle in page %}
 
-                <tr style="background-color:{% cycle 'white' '#EBE6D6' %}; text-align: center;">
+            <tr style="background-color:{% cycle 'white' '#EBE6D6' %}; text-align: center;">
+            
+                {% if request.user.is_authenticated %}
+                    {% if not role_error or request.user.is_superuser %}
+                        {% if manager or request.user.is_superuser %}
+                            <td style="box-shadow: 1px 1px 1px black;">
+                                <a href="{% url 'vehicle_edit' pk=vehicle.id %}">{{ vehicle.vehicleNumber }}</a>
+                            </td> 
+                        {% else %}
+                            <td>{{ vehicle.vehicleNumber }}</td>
+                        {% endif %}
+                    {% else %}
+                        <td>{{ vehicle.vehicleNumber }}</td>
+                    {% endif %}
+                {% else %}
+                    <td>{{ vehicle.vehicleNumber }}</td>
+                {% endif %}
 
-                        <td >{{ vehicle.vehicleNumber }}</td>
-                        <td id="vehicle_id-{{ vehicle.id }}" class="vehicleModelRow" ><a href='#' onclick="on('{{ vehicle.vehicleModel }}', 'vehicle_model', 'Модель техники')">{{ vehicle.vehicleModel }}</a></td>
-                        <td id="vehicle_id-{{ vehicle.id }}" class="engineModelRow"><a href='#' onclick="on('{{ vehicle.engineModel }}', 'engine_model' , 'Модель двигателя')">{{ vehicle.engineModel }}</a></td>
-                        <td>{{ vehicle.engineNumber }}</td>
-                        <td class="transmissionModelRow"><a href='#' onclick="on('{{ vehicle.transmissionModel }}', 'transmission_model' , 'Модель трансмиссии')">{{ vehicle.transmissionModel }}</a></td>
-                        <td>{{ vehicle.transmissionNumber }}</td>
-                        <td class="driveAxleModelRow"><a href='#' onclick="on('{{ vehicle.driveAxleModel }}', 'drive_axle_model' , 'Модель ведущего моста')">{{ vehicle.driveAxleModel }}</td>
-                        <td>{{ vehicle.driveAxleNumber }}</a></td>
-                        <td class="steeringAxleModelRow"><a href='#' onclick="on('{{ vehicle.steeringAxleModel }}', 'steering_axle_model' , 'Модель управляемого моста')">{{ vehicle.steeringAxleModel }}</a></td>
-                        <td>{{ vehicle.steeringAxleNumber }}</td>
-                        <td style="{{ hideInfo }}">{{ vehicle.deliveryContract_N_data }}</td>
-                        <td style="{{ hideInfo }}">{{ vehicle.deliveryDate }}</td>
-                        <td style="{{ hideInfo }}">{{ vehicle.consignee }}</td>
-                        <td style="{{ hideInfo }}">{{ vehicle.deliveryAdress }}</td>
-                        <td style="{{ hideInfo }}">{{ vehicle.completeSet }}</td>
-                        <td style="{{ hideInfo }}">{{ vehicle.client }}</td>
-                        <td style="{{ hideInfo }}">{{ vehicle.serviceCompany }}</td>
-
-                </tr>
+                <td id="vehicle_id-{{ vehicle.id }}" class="vehicleModelRow" ><a href='#' onclick="on('{{ vehicle.vehicleModel }}', 'vehicle_model', 'Модель техники')">{{ vehicle.vehicleModel }}</a></td>
+                <td id="vehicle_id-{{ vehicle.id }}" class="engineModelRow"><a href='#' onclick="on('{{ vehicle.engineModel }}', 'engine_model' , 'Модель двигателя')">{{ vehicle.engineModel }}</a></td>
+                <td>{{ vehicle.engineNumber }}</td>
+                <td class="transmissionModelRow"><a href='#' onclick="on('{{ vehicle.transmissionModel }}', 'transmission_model' , 'Модель трансмиссии')">{{ vehicle.transmissionModel }}</a></td>
+                <td>{{ vehicle.transmissionNumber }}</td>
+                <td class="driveAxleModelRow"><a href='#' onclick="on('{{ vehicle.driveAxleModel }}', 'drive_axle_model' , 'Модель ведущего моста')">{{ vehicle.driveAxleModel }}</td>
+                <td>{{ vehicle.driveAxleNumber }}</a></td>
+                <td class="steeringAxleModelRow"><a href='#' onclick="on('{{ vehicle.steeringAxleModel }}', 'steering_axle_model' , 'Модель управляемого моста')">{{ vehicle.steeringAxleModel }}</a></td>
+                <td>{{ vehicle.steeringAxleNumber }}</td>
+                <td style="{{ hideInfo }}">{{ vehicle.deliveryContract_N_data }}</td>
+                <td style="{{ hideInfo }}">{{ vehicle.deliveryDate }}</td>
+                <td style="{{ hideInfo }}">{{ vehicle.consignee }}</td>
+                <td style="{{ hideInfo }}">{{ vehicle.deliveryAdress }}</td>
+                <td style="{{ hideInfo }}">{{ vehicle.completeSet }}</td>
+                <td style="{{ hideInfo }}">{{ vehicle.client }}</td>
+                <td style="{{ hideInfo }}">{{ vehicle.serviceCompany }}</td>
+            </tr>
         {% endfor %}
         </table>   
     {% else %}

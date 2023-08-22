@@ -83,7 +83,6 @@ class ServiceCompanySerializer(serializers.ModelSerializer):
    # NOTE: to get link for "roles" instead of just an ID for 
    def to_representation(self, instance):
       data = super().to_representation(instance)
-      #  data['role'] = f'http://127.0.0.1:8000/api/roles/{data["role"]}'
       data['role'] = f'{settings.SITE_URL}/api/roles/{data["role"]}'
       return data
 
@@ -96,14 +95,8 @@ class ClientSerializer(serializers.ModelSerializer):
    # NOTE: to get link for "roles" instead of just an ID for 
    def to_representation(self, instance):
      data = super().to_representation(instance)
-    #  data['role'] = f'http://127.0.0.1:8000/api/roles/{data["role"]}'
      data['role'] = f'{settings.SITE_URL}/api/roles/{data["role"]}'
      return data
-
-#    def to_representation(self, instance):
-#      data = super().to_representation(instance)
-#      data['role'] = str(data['role'])  # Преобразовываем объект в строку
-#      return data
 
 
 class ManagerSerializer(serializers.ModelSerializer):
@@ -114,7 +107,6 @@ class ManagerSerializer(serializers.ModelSerializer):
    # NOTE: to get link for "roles" instead of just an ID for 
    def to_representation(self, instance):
      data = super().to_representation(instance)
-    #  data['role'] = f'http://127.0.0.1:8000/api/roles/{data["role"]}'
      data['role'] = f'{settings.SITE_URL}/api/roles/{data["role"]}'
      return data
    

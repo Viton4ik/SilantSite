@@ -19,33 +19,19 @@ body, html {
     width: 100%;
     margin: 0;
     padding: 0;
-    /* min-height: 100vh; */
-
-    /* display: flex;
-    justify-content: center;
-    flex-direction: column; */
 
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(auto, 1fr));
-    /* grid-template-columns: repeat(auto-fit, 1fr); */
 } 
 
 header {
     color: rgb(81, 88, 94);
-    /* background: rgb(3, 100, 226); */
     background: linear-gradient(rgb(241, 239, 239) 0%, #dfd6d6 51%, #e3ebfa 75%); 
     height: 100px;
     display: flex;
     justify-content: space-between;
-    /*justify-content: space-evenly;*/
-    /* align-items: center; */
     padding: 20px 20px 0px 20px;
     border-radius: 10px;
-    /*position: fixed;*/
-    /*left: 0;*/
-    /*top: 0;*/
-    /* min-width: 1450px; */
-    /* width: 100%; */
 }
 
 .headerInfo {
@@ -59,30 +45,15 @@ header {
     text-shadow: 4px 4px 4px #163E6C;
 }
 
-/* .headerAuthorization {
-    padding-top: 10px;
-    
-} */
-
 .headerAuthorizationButton {
     width: 150px;
     height: 40px;
-    /* padding-top: 10px; */
     font-size: 18px;
     font-family: 'PT Astra Sans Regular', serif;
     text-align: center;
     vertical-align: center;
-    /* border-radius: 5px;
-    border-color: #7a9cf3;
-    background: #9eb9f0; */
     cursor: pointer;
-    /* font-size: 18px;
-    color: rgb(81, 88, 94); */
     border-radius: 30px;
-    
-    /* font-size: 1vw 1hw; */
-
-
     --button-color-contrast: hsla(221, 100%, 78%, 1);
     --button-color-hover: hsla(221, 100%, 28%, 1);
     --button-color-light: hsla(221, 18%, 32%, 1);
@@ -92,13 +63,8 @@ header {
     animation-duration: 1000ms;
     animation-play-state: running;
     animation-name: none;
-
     border-color: var(--button-color);
     background-color: transparent;
-
-    /* padding-left: 1.42857rem !important; */
-    /* padding-right: 1.42857rem !important; */
-
     color: var(--color) !important;
 }
 
@@ -121,18 +87,10 @@ footer {
     font-family: 'PT Astra Sans Bold Italic', serif;
     font-size: 24px;
     text-shadow: 4px 4px 4px #7a9cf3;
-    /* min-width: 1390px; */
-
-    /* width: 100%; */
     bottom: 0;
     left: 0;
     right: 0;
     position: fixed; 
-
-    /* margin-top: auto; */
-    /* flex-grow: 1; */
-    /* grid-column: 1 / -1; */
-
 }
 
 .logo {
@@ -141,24 +99,12 @@ footer {
 }
 
 .tableVehicles{
-    /* flex: 1; */
     max-width: 100wv;
     font-family: 'PT Astra Sans Regular', serif;
     font-size: 18px;
-    /* width: 100vw;  */
-    /* display: inline-block; */
     width: 100%;
-    /* min-height: 360px; */
-    /* flex: 0 0 calc(50% - 20px); */
-
-    /* height: auto; */
-    
+   
 }
-
-/* .tableVehicles tr {
-    width: 100%;
-    
-} */
 
 .mainView {
     height: auto;
@@ -168,13 +114,6 @@ footer {
 .paginator {
     margin-bottom: 90px;
     margin-top: 10px;
-    /* left: 45%;
-    right: 45%; */
-    /* display: flex; */
-    
-    /* justify-content: center; */
-    /* bottom: 100px;
-    position: fixed;  */
 }
 
 .filter {
@@ -184,23 +123,12 @@ footer {
 }
 
 .filterForm {
-    /* padding: 0px 10px; */
-    /* margin-left: 5px; */
     display: flex;
     justify-content: space-evenly;
-    /* align-items: center; */
-    /* width: auto; */
     max-height: 20px;
     height: 100%;
     width: 100%;
     white-space: nowrap;
-    /* gap: 1px; */
-    
-
-    /* display: grid;
-    grid-template-columns: repeat(auto-fit, 1fr);
-    justify-content: space-around; */
-    /* align-items: center; */
 }
 
 .user{
@@ -240,13 +168,8 @@ footer {
     color: var(--color) !important;
 }
 
-
 .headerAuthorizationButton:hover, .tableChangeButtons:hover {
-    /* background-color: var(--button-color-contrast); */
-    /* background-color: #EBE6D6; */
-    /* background-color: linear-gradient(#c9a938 0%, #a3904f 51%, #a09470 75%); */
     box-shadow: 4px 4px 4px var(--button-color-light);
-    /* border-radius: 50px; */
 }
 
 .vehicleModelRowInfo {
@@ -288,13 +211,8 @@ footer {
 
 }
 
-
 /* Стили для больших экранов, например, 1920x1080 и 1366x768 */
 @media (min-width: 1366px) {
-    /* .mainView {
-        min-height: 768px;
-
-        } */
     }
   
   /* Стили для средних экранов, например, 1536x864 и 1440x900 */
@@ -307,12 +225,8 @@ footer {
         font-size: 14px;
         text-align: right;
     }
-    /* header {
-        padding: 20px 0px 0px 20px;
-    } */
     .headerInfo {
         font-size: 18px;
-        /* max-width: 70%; */
     }
     .logo {
         width: 60%;
@@ -321,10 +235,6 @@ footer {
     footer {
         font-size: 20px;
     }
-    /* .mainView {
-        min-height: 768px;
-
-        } */
 }
 
 @media (max-width: 870px) {
@@ -335,12 +245,8 @@ footer {
         width: 90px;
         font-size: 10px;
     }
-    /* header {
-        padding: 20px 0px 0px 20px;
-    } */
     .headerInfo {
         font-size: 14px;
-        /* max-width: 70%; */
     }
     .logo {
         width: 60%;
@@ -353,9 +259,6 @@ footer {
   
   /* Стили для мобильных экранов, например, 360x640 */
 @media (max-width: 767px) {
-    /* .headerInfo, .headerInfoText{
-        max-width: 90%;
-    } */
     .headerInfo {
         display: none;
     }

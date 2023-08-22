@@ -1,12 +1,11 @@
 
 from django.urls import path, include
 
-from .views import html_404, indexPage, mainPage, maintenancePage, claimPage, vehicle_create
+from .views import html_404, indexPage, mainPage, maintenancePage, claimPage, vehicle_create, maintenance_create, claim_create, vehicle_edit, maintenance_edit, claim_edit
 
 # rest_framework
 from rest_framework import routers
 from App import views
-
 
 router = routers.DefaultRouter()
 
@@ -66,7 +65,6 @@ schema_view = get_schema_view(
     permission_classes=(permissions.IsAuthenticatedOrReadOnly ,), 
 )
 
-
 urlpatterns = [
 
     path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
@@ -84,5 +82,11 @@ urlpatterns = [
     path('404/', html_404, name='html_404'),
 
     path('vehicle_create/', vehicle_create, name='vehicle_create'),
+    path('maintenance_create/', maintenance_create, name='maintenance_create'),
+    path('claim_create/', claim_create, name='claim_create'),
 
+    path('main/<int:pk>/', vehicle_edit, name='vehicle_edit'),
+    path('maintenance/<int:pk>/', maintenance_edit, name='maintenance_edit'),
+    path('claim/<int:pk>/', claim_edit, name='claim_edit'),
+    
 ]
