@@ -69,7 +69,12 @@ cd Project
 ```sh
 pip3 install -r requirements.txt
 ```
-- Запускайте Django сервер
+- Запускайте Django сервер для Windows:
+
+```sh
+python manage.py runserver
+```
+- Запускайте Django сервер для Linux:
 
 ```sh
 python3 manage.py runserver
